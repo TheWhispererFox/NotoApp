@@ -29,25 +29,29 @@ class MyApp extends StatelessWidget {
             ),
             body: Padding(
               padding: const EdgeInsets.all(20),
-              child: CustomScrollView(slivers: [
-                SliverToBoxAdapter(
-                  child: MasonryGrid(
-                      //primary: false,
-                      //padding: const EdgeInsets.all(20),
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      column: 2,
-                      //crossAxisCount: 2,
-                      children: const <Widget>[
-                        NoteCard(
-                            color: Color(0xFF262635),
-                            title: 'Quote Today',
-                            content: Text(
-                                '"The best preparation for tomorrow is doing your best today." \n - H. Jackson Brown, Jr.',
-                                style: TextStyle(color: Color(0xFF7b7c8b)))),
-                      ]),
-                )
-              ]),
+              child: CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: MasonryGrid(
+                        //primary: false,
+                        //padding: const EdgeInsets.all(20),
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        column: 2,
+                        //crossAxisCount: 2,
+                        children: const <Widget>[
+                          NoteCard(
+                              color: Color(0xFF262635),
+                              title: 'Quote Today',
+                              content: Text(
+                                  '"The best preparation for tomorrow is doing your best today." \n - H. Jackson Brown, Jr.',
+                                  style: TextStyle(color: Color(0xFF7b7c8b)))),
+                        ]),
+                  )
+                ],
+                physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
+              ),
             ),
             backgroundColor: const Color(0xFF1f1d2a),
           ),

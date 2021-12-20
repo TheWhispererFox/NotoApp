@@ -88,3 +88,10 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+fonts:
+    - family: MontserratAlternates
+      fonts:
+        - asset: fonts/MontserratAlternates-Medium.ttf
+        - asset: fonts/MontserratAlternates-Italic.ttf
+          style: italic
