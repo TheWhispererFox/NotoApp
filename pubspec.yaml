@@ -35,8 +35,14 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   masonry_grid: ^1.0.0
+  built_value: ^8.1.3
+  built_collection: ^5.1.1
+  uuid: ^3.0.5
+  intl: ^0.17.0
+  auto_route: ^3.2.0
 
 dev_dependencies:
+  lint: ^1.0.0
   flutter_test:
     sdk: flutter
 
@@ -46,6 +52,9 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
+  build_runner: ^2.1.7
+  built_value_generator: ^8.1.3
+  auto_route_generator: ^3.2.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -89,9 +98,9 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 
-fonts:
-    - family: MontserratAlternates
-      fonts:
-        - asset: fonts/MontserratAlternates-Medium.ttf
-        - asset: fonts/MontserratAlternates-Italic.ttf
-          style: italic
+  fonts:
+      - family: MontserratAlternates
+        fonts:
+          - asset: fonts/MontserratAlternates-Medium.ttf
+          - asset: fonts/MontserratAlternates-Italic.ttf
+            style: italic
