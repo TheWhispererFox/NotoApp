@@ -29,7 +29,6 @@ class _NotesViewState extends State<NotesView> with TickerProviderStateMixin {
           AutoRouter.of(context).push(const CreateNoteViewRoute());
         },
         elevation: 10,
-        backgroundColor: const Color(0xff6f70c2),
         child: const Icon(Icons.note_add_outlined),
       ),
       appBar: AppBar(
