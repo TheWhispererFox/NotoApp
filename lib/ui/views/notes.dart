@@ -4,7 +4,7 @@ import 'package:masonry_grid/masonry_grid.dart';
 import 'package:noto_app/app/material_auto_router.gr.dart';
 import 'package:noto_app/data/models/note.dart';
 import 'package:noto_app/ui/components/note_card.dart';
-import 'package:noto_app/utils/constants.dart' as noto_utils;
+import 'package:noto_app/utils/constants.dart' as constants;
 import 'package:noto_app/utils/round_underline_tab_indicator.dart';
 
 class NotesView extends StatelessWidget {
@@ -60,19 +60,13 @@ class NotesView extends StatelessWidget {
         floatingActionButton: FloatingActionButton.large(
           onPressed: () {
             AutoRouter.of(context).push(const CreateNoteViewRoute());
-            //Navigator.push(
-            //context,
-            //MaterialPageRoute(
-            //builder: (context) => const CreateNoteView(),
-            //),
-            //);
           },
           elevation: 10,
           backgroundColor: const Color(0xff6f70c2),
           child: const Icon(Icons.note_add_outlined),
         ),
         appBar: AppBar(
-          backgroundColor: noto_utils.backgroundColor,
+          backgroundColor: constants.backgroundColor,
           elevation: 0,
           title: Row(
             children: <Widget>[
@@ -90,7 +84,7 @@ class NotesView extends StatelessWidget {
                   padding: MaterialStateProperty.all(EdgeInsets.zero),
                   minimumSize: MaterialStateProperty.all(const Size(40, 35)),
                   foregroundColor: MaterialStateProperty.resolveWith(
-                    noto_utils.getColor,
+                    constants.getColor,
                   ),
                   splashFactory: NoSplash.splashFactory,
                 ),
@@ -107,7 +101,7 @@ class NotesView extends StatelessWidget {
                   padding: MaterialStateProperty.all(EdgeInsets.zero),
                   minimumSize: MaterialStateProperty.all(const Size(40, 35)),
                   foregroundColor: MaterialStateProperty.resolveWith(
-                    noto_utils.getColor,
+                    constants.getColor,
                   ),
                   splashFactory: NoSplash.splashFactory,
                 ),
@@ -124,7 +118,7 @@ class NotesView extends StatelessWidget {
                   padding: MaterialStateProperty.all(EdgeInsets.zero),
                   minimumSize: MaterialStateProperty.all(const Size(40, 35)),
                   foregroundColor: MaterialStateProperty.resolveWith(
-                    noto_utils.getColor,
+                    constants.getColor,
                   ),
                   splashFactory: NoSplash.splashFactory,
                 ),

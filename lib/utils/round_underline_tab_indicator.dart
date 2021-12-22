@@ -21,6 +21,16 @@ class RoundUnderlineTabIndicator extends Decoration {
   final EdgeInsetsGeometry insets;
 
   @override
+  BoxPainter createBoxPainter([VoidCallback? onChanged]) {
+    return _UnderlinePainter(this, onChanged);
+  }
+
+  @override
+  Path getClipPath(Rect rect, TextDirection textDirection) {
+    return Path()..addRect(_indicatorRectFor(rect, textDirection));
+  }
+
+  @override
   Decoration? lerpFrom(Decoration? a, double t) {
     if (a is UnderlineTabIndicator) {
       return UnderlineTabIndicator(
@@ -42,11 +52,6 @@ class RoundUnderlineTabIndicator extends Decoration {
     return super.lerpTo(b, t);
   }
 
-  @override
-  BoxPainter createBoxPainter([VoidCallback? onChanged]) {
-    return _UnderlinePainter(this, onChanged);
-  }
-
   Rect _indicatorRectFor(Rect rect, TextDirection textDirection) {
     final Rect indicator = insets.resolve(textDirection).deflateRect(rect);
     return Rect.fromLTWH(
@@ -55,11 +60,6 @@ class RoundUnderlineTabIndicator extends Decoration {
       indicator.width + 20,
       borderSide.width,
     );
-  }
-
-  @override
-  Path getClipPath(Rect rect, TextDirection textDirection) {
-    return Path()..addRect(_indicatorRectFor(rect, textDirection));
   }
 }
 

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:noto_app/app/material_auto_router.gr.dart';
+import 'package:noto_app/app/themes.dart' as themes;
 
-void main() => runApp(MyApp());
+void main() => runApp(App());
 
-class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+class App extends StatelessWidget {
+  App({Key? key}) : super(key: key);
+
+  static String appName = "Noto App";
 
   final _appRouter = AppRouter();
 
@@ -13,12 +16,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       routeInformationParser: _appRouter.defaultRouteParser(),
       routerDelegate: _appRouter.delegate(),
-      theme: ThemeData(
-        fontFamily: 'MontserratAlternates',
-        splashFactory: NoSplash.splashFactory,
-        cardColor: const Color(0xFF262635),
-      ),
-      title: 'Noto App',
+      theme: themes.light,
+      title: appName,
     );
   }
 }

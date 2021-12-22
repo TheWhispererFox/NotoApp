@@ -33,10 +33,17 @@ class NoteCard extends StatelessWidget {
             children: [
               Text(
                 formattedDate,
-                style: const TextStyle(color: Color(0xFF7b7c8b)),
+                style: const TextStyle(
+                  color: Color(0xFF7b7c8b),
+                ),
               ),
               const Spacer(),
-              const Text('Quote', style: TextStyle(color: Color(0xFF7b7c8b)))
+              const Text(
+                'Quote',
+                style: TextStyle(
+                  color: Color(0xFF7b7c8b),
+                ),
+              )
             ],
           )
         ],
