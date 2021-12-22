@@ -7,14 +7,55 @@ import 'package:noto_app/data/models/note.dart';
 @injectable
 class NoteRepository extends FirestoreRepository<Note> {
   @override
-  // TODO: implement data
-  BuiltList<Note> get data => throw UnimplementedError();
+  BuiltList<Note> get data => [
+        Note(
+          title: 'Quote Today',
+          content:
+              '"The best preparation for tomorrow is doing your best today." \n - H. Jackson Brown, Jr.',
+        ),
+        Note(
+          title: 'Quote Today',
+          content:
+              '"The best preparation for tomorrow is doing your best today." \n - H. Jackson Brown, Jr. \n A Loooooooooooooooooooooooooooooooooooooooooong cat',
+        ),
+        Note(
+          title: 'Quote Today',
+          content:
+              '"The best preparation for tomorrow is doing your best today." \n - H. Jackson Brown, Jr. \n A very Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong cat',
+        ),
+        Note(
+          title: 'Quote Today',
+          content:
+              '"The best preparation for tomorrow is doing your best today." \n - H. Jackson Brown, Jr.',
+        ),
+        Note(
+          title: 'Quote Today',
+          content:
+              '"The best preparation for tomorrow is doing your best today." \n - H. Jackson Brown, Jr.',
+        ),
+        Note(
+          title: 'Quote Today',
+          content:
+              '"The best preparation for tomorrow is doing your best today." \n - H. Jackson Brown, Jr.',
+        ),
+        Note(
+          title: 'Quote Today',
+          content:
+              '"The best preparation for tomorrow is doing your best today." \n - H. Jackson Brown, Jr.',
+        ),
+        Note(
+          title: 'Quote Today',
+          content:
+              '"The best preparation for tomorrow is doing your best today." \n - H. Jackson Brown, Jr.',
+        ),
+      ].toBuiltList();
 
   @override
-  // TODO: implement path
-  FirestorePath get path => throw UnimplementedError();
+  FirestorePath get path => FirestorePath(
+        folderPath: "/userData",
+        collectionName: "notes",
+      );
 
   @override
-  // TODO: implement stream
-  Stream<BuiltList<Note>> get stream => throw UnimplementedError();
+  Stream<BuiltList<Note>> get stream => Stream.value(data);
 }

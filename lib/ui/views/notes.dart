@@ -2,58 +2,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:masonry_grid/masonry_grid.dart';
 import 'package:noto_app/app/material_auto_router.gr.dart';
-import 'package:noto_app/data/models/note.dart';
 import 'package:noto_app/ui/components/note_card.dart';
 import 'package:noto_app/utils/constants.dart' as constants;
-import 'package:noto_app/utils/round_underline_tab_indicator.dart';
+import 'package:noto_app/ui/components/round_underline_tab_indicator.dart';
 
 class NotesView extends StatelessWidget {
   const NotesView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final List<Note> notes = [
-      Note(
-        title: 'Quote Today',
-        content:
-            '"The best preparation for tomorrow is doing your best today." \n - H. Jackson Brown, Jr.',
-      ),
-      Note(
-        title: 'Quote Today',
-        content:
-            '"The best preparation for tomorrow is doing your best today." \n - H. Jackson Brown, Jr. \n A Loooooooooooooooooooooooooooooooooooooooooong cat',
-      ),
-      Note(
-        title: 'Quote Today',
-        content:
-            '"The best preparation for tomorrow is doing your best today." \n - H. Jackson Brown, Jr. \n A very Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong cat',
-      ),
-      Note(
-        title: 'Quote Today',
-        content:
-            '"The best preparation for tomorrow is doing your best today." \n - H. Jackson Brown, Jr.',
-      ),
-      Note(
-        title: 'Quote Today',
-        content:
-            '"The best preparation for tomorrow is doing your best today." \n - H. Jackson Brown, Jr.',
-      ),
-      Note(
-        title: 'Quote Today',
-        content:
-            '"The best preparation for tomorrow is doing your best today." \n - H. Jackson Brown, Jr.',
-      ),
-      Note(
-        title: 'Quote Today',
-        content:
-            '"The best preparation for tomorrow is doing your best today." \n - H. Jackson Brown, Jr.',
-      ),
-      Note(
-        title: 'Quote Today',
-        content:
-            '"The best preparation for tomorrow is doing your best today." \n - H. Jackson Brown, Jr.',
-      ),
-    ];
     return DefaultTabController(
       length: 2,
       child: Scaffold(
