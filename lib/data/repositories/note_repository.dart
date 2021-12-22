@@ -9,7 +9,7 @@ class NoteRepository extends FirestoreRepository<Note> {
   @override
   BuiltList<Note> get data => [
         Note(
-          title: 'Quote Today',
+          title: 'Quote abobus',
           content:
               '"The best preparation for tomorrow is doing your best today." \n - H. Jackson Brown, Jr.',
         ),

@@ -21,8 +21,10 @@ class AppRouter extends _i3.RootStackRouter {
   @override
   final Map<String, _i3.PageFactory> pagesMap = {
     NotesViewRoute.name: (routeData) {
+      final args = routeData.argsAs<NotesViewRouteArgs>(
+          orElse: () => const NotesViewRouteArgs());
       return _i3.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i1.NotesView());
+          routeData: routeData, child: _i1.NotesView(key: args.key));
     },
     CreateNoteViewRoute.name: (routeData) {
       return _i3.MaterialPageX<dynamic>(
@@ -39,10 +41,23 @@ class AppRouter extends _i3.RootStackRouter {
 
 /// generated route for
 /// [_i1.NotesView]
-class NotesViewRoute extends _i3.PageRouteInfo<void> {
-  const NotesViewRoute() : super(NotesViewRoute.name, path: '/');
+class NotesViewRoute extends _i3.PageRouteInfo<NotesViewRouteArgs> {
+  NotesViewRoute({_i4.Key? key})
+      : super(NotesViewRoute.name,
+            path: '/', args: NotesViewRouteArgs(key: key));
 
   static const String name = 'NotesViewRoute';
+}
+
+class NotesViewRouteArgs {
+  const NotesViewRouteArgs({this.key});
+
+  final _i4.Key? key;
+
+  @override
+  String toString() {
+    return 'NotesViewRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for

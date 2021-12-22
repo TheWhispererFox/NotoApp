@@ -8,7 +8,9 @@ class NoteCard extends StatelessWidget {
     Key? key,
     required this.note,
   }) : super(key: key);
+
   final Note note;
+
   @override
   Widget build(BuildContext context) {
     final String formattedDate = DateFormat('dd MMM').format(note.createdAt);

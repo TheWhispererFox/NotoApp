@@ -1,4 +1,14 @@
+import 'package:built_collection/built_collection.dart';
+import 'package:noto_app/app/locator.dart';
 import 'package:noto_app/base/bloc/bloc.dart';
+import 'package:noto_app/data/models/note.dart';
+import 'package:noto_app/data/repositories/note_repository.dart';
 import 'package:noto_app/domain/notes/notes_state.dart';
 
-class NotesBloc extends Bloc<NotesState, NotesStateBuilder> {}
+class NotesBloc extends Bloc<NotesState, NotesStateBuilder> {
+  NotesBloc() : super(NotesState());
+
+  final NoteRepository _noteRepository = locator.get();
+
+  Stream<BuiltList<Note>> getNotes() => _noteRepository.stream;
+}
