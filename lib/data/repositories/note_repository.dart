@@ -57,5 +57,5 @@ class NoteRepository extends FirestoreRepository<Note> {
       );
 
   @override
-  Stream<BuiltList<Note>> get stream => Stream.value(data);
+  Stream<BuiltList<Note>> get stream => Stream.value(data).asBroadcastStream();
 }
