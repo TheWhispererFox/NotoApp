@@ -51,7 +51,7 @@ class RoundUnderlineTabIndicator extends Decoration {
     final Rect indicator = insets.resolve(textDirection).deflateRect(rect);
     return Rect.fromLTWH(
       indicator.left - 10,
-      indicator.bottom - borderSide.width,
+      indicator.bottom - borderSide.width - 7,
       indicator.width + 20,
       borderSide.width,
     );
