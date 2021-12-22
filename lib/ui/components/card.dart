@@ -9,10 +9,12 @@ class Card extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: child,
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-            color: color,
-            borderRadius: const BorderRadius.all(Radius.circular(20))));
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
+      ),
+      child: child,
+    );
   }
 }
