@@ -1,6 +1,4 @@
 import 'package:built_value/built_value.dart';
-import 'package:noto_app/utils/uuid.dart';
-import 'package:uuid/uuid.dart';
 
 part 'entity.g.dart';
 
