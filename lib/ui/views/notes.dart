@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:masonry_grid/masonry_grid.dart';
 import 'package:noto_app/app/material_auto_router.gr.dart';
 import 'package:noto_app/domain/notes/notes_bloc.dart';
+import 'package:noto_app/domain/themes/theme_bloc.dart';
 import 'package:noto_app/ui/components/note_card.dart';
 import 'package:noto_app/ui/components/round_underline_tab_indicator.dart';
 import 'package:noto_app/utils/constants.dart' as constants;
@@ -79,7 +80,15 @@ class _NotesViewState extends State<NotesView> with TickerProviderStateMixin {
               label: const Text(''),
             ),
             TextButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                final themeBloc = context.read<ThemeBloc>();
+
+                if (themeBloc.state.themeMode == ThemeMode.dark) {
+                  themeBloc.events.setThemeMode(ThemeMode.light);
+                } else {
+                  themeBloc.events.setThemeMode(ThemeMode.dark);
+                }
+              },
               style: ButtonStyle(
                 padding: MaterialStateProperty.all(EdgeInsets.zero),
                 minimumSize: MaterialStateProperty.all(const Size(40, 35)),
