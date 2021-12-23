@@ -1,5 +1,6 @@
 export 'built_list_extension.dart';
 export 'context_extension.dart';
+export 'date_extensions.dart';
 export 'future_extension.dart';
 export 'generic_extension.dart';
 export 'stream_extension.dart';

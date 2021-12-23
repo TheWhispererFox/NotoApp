@@ -1,7 +1,5 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:injectable/injectable.dart';
-import 'package:noto_app/base/repositories/firestore_path.dart';
-import 'package:noto_app/base/repositories/firestore_repository.dart';
 import 'package:noto_app/base/repositories/repository.dart';
 import 'package:noto_app/data/models/note.dart';
 
@@ -52,12 +50,6 @@ class NoteRepository extends Repository<Note> {
 
   @override
   BuiltList<Note> get data => _notes.toBuiltList();
-
-  // @override
-  // FirestorePath get path => FirestorePath(
-  //       folderPath: "/userData",
-  //       collectionName: "notes",
-  //     );
 
   @override
   Stream<BuiltList<Note>> get stream => Stream.value(data).asBroadcastStream();

@@ -114,7 +114,7 @@ class _NotesViewState extends State<NotesView> with TickerProviderStateMixin {
           labelStyle: const TextStyle(fontFamily: 'Roboto'),
           unselectedLabelStyle: const TextStyle(fontFamily: 'Roboto'),
           indicator: const RoundUnderlineTabIndicator(
-            borderSide: BorderSide(color: const Color(0xFFF3C060), width: 5),
+            borderSide: BorderSide(color: Color(0xFFF3C060), width: 5),
           ),
           tabs: const [
             Tab(text: 'All'),
