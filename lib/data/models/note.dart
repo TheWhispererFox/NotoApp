@@ -11,14 +11,13 @@ abstract class Note implements Built<Note, NoteBuilder>, Entity {
     required String content,
     required String title,
   }) {
-    return _$Note(
-      (b) => b
-        ..id = genUuid()
-        ..createdAt = DateTime.now().asUtc()
-        ..updatedAt = DateTime.now().asUtc()
+    return _$Note((b) {
+      initEntity(b);
+
+      b
         ..title = title
-        ..content = content,
-    );
+        ..content = content;
+    });
   }
 
   Note._();
