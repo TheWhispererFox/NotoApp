@@ -10,5 +10,5 @@ abstract class Repository<T extends Entity> {
 
   void add(T model);
   void update(T model);
-  void remove(T model);
+  void delete(T model);
 }

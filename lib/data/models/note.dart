@@ -6,7 +6,7 @@ import 'package:noto_app/utils/uuid.dart';
 
 part 'note.g.dart';
 
-abstract class Note implements Entity, Built<Note, NoteBuilder> {
+abstract class Note implements Built<Note, NoteBuilder>, Entity {
   factory Note({
     required String content,
     required String title,

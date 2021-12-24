@@ -8,6 +8,8 @@ abstract class Entity {
   DateTime get createdAt;
   DateTime get updatedAt;
   DateTime? get deletedAt;
+
+  Entity rebuild(void Function(EntityBuilder b) updates);
 }
 
 extension EntityExtension on Entity {
