@@ -1,9 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:noto_app/app/locator.dart';
 import 'package:noto_app/data/models/note.dart';
 import 'package:noto_app/data/repositories/firestore/firestore_note_repository.dart';
-import 'package:noto_app/ui/components/card.dart' as local;
 
 class NoteCard extends StatelessWidget {
   const NoteCard({
@@ -23,7 +24,11 @@ class NoteCard extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           final FirestoreNoteRepository repo = locator.get();
-          repo.update(note.rebuild((b) => b..content = "aaa"));
+          repo.update(
+            note.rebuild(
+              (b) => b..content = Random().nextInt(9999).toString(),
+            ),
+          );
         },
         child: Card(
           elevation: 0,
