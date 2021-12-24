@@ -16,7 +16,7 @@ abstract class FirestoreRepository<T extends Entity> extends Repository<T> {
 
   @override
   void add(T model) {
-    collectionRef.add(serializers.serialize(model));
+    collectionRef.doc(model.id).set(serializers.serialize(model));
   }
 
   @override
