@@ -1,8 +1,6 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:noto_app/base/types/entity.dart';
-import 'package:noto_app/utils/extensions/extensions.dart';
-import 'package:noto_app/utils/uuid.dart';
 
 part 'note.g.dart';
 

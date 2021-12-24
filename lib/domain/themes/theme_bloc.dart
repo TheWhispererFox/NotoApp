@@ -18,13 +18,13 @@ class ThemeEvents {
 }
 
 class ThemeBloc extends Bloc<ThemeState, ThemeStateBuilder> {
-  late final events = ThemeEvents(this);
-
   ThemeBloc() : super(ThemeState.initial()) {
     events.setThemeMode(
       ThemeMode.light,
     );
   }
+
+  late final events = ThemeEvents(this);
 
   @override
   bool get debug => true;

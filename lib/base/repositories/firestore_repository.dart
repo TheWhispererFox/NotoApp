@@ -8,12 +8,6 @@ import 'package:noto_app/data/serializers/serializers.dart';
 abstract class FirestoreRepository<T extends Entity> extends Repository<T> {
   final _firestore = FirebaseFirestore.instance;
 
-  FirestorePath get path;
-  CollectionReference get collectionRef => _firestore.collection(path.fullPath);
-
-  @override
-  void dispose() {}
-
   @override
   void add(T model) {
     final doc = collectionRef.doc(model.id);
@@ -33,15 +27,8 @@ abstract class FirestoreRepository<T extends Entity> extends Repository<T> {
   }
 
   @override
-  void update(T model) {
-    collectionRef.doc(model.id).set(
-          serializers.serialize(
-            model.rebuild(
-              (b) => b..updatedAt = DateTime.now(),
-            ),
-          ),
-        );
-  }
+  // TODO: implement data
+  BuiltList<T> get data => throw UnimplementedError();
 
   @override
   void delete(
@@ -59,22 +46,36 @@ abstract class FirestoreRepository<T extends Entity> extends Repository<T> {
     }
   }
 
-  Stream<BuiltList<T>> _deserialize(Stream<QuerySnapshot<Object?>> data) => data
-      .map((it) => it.docs)
-      .map((it) => it.map((e) => e.data()))
-      .map((it) => it.map((e) => deserialize<T>(e)))
-      .map((event) => event.whereType<T>().toBuiltList());
+  @override
+  void dispose() {}
 
   @override
   Stream<BuiltList<T>> get stream => _deserialize(
         collectionRef.where("deletedAt", isNull: true).snapshots(),
       );
 
+  @override
+  void update(T model) {
+    collectionRef.doc(model.id).set(
+          serializers.serialize(
+            model.rebuild(
+              (b) => b..updatedAt = DateTime.now(),
+            ),
+          ),
+        );
+  }
+
+  FirestorePath get path;
+
+  CollectionReference get collectionRef => _firestore.collection(path.fullPath);
+
   Stream<BuiltList<T>> get streamDeleted => _deserialize(
         collectionRef.where("deletedAt", isNull: false).snapshots(),
       );
 
-  @override
-  // TODO: implement data
-  BuiltList<T> get data => throw UnimplementedError();
+  Stream<BuiltList<T>> _deserialize(Stream<QuerySnapshot<Object?>> data) => data
+      .map((it) => it.docs)
+      .map((it) => it.map((e) => e.data()))
+      .map((it) => it.map((e) => deserialize<T>(e)))
+      .map((event) => event.whereType<T>().toBuiltList());
 }
