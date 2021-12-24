@@ -5,6 +5,7 @@ import 'package:noto_app/base/repositories/repository.dart';
 import 'package:noto_app/base/types/entity.dart';
 import 'package:noto_app/data/serializers/serializers.dart';
 import 'package:noto_app/utils/extensions/date_extensions.dart';
+import 'package:noto_app/utils/log.dart';
 
 abstract class FirestoreRepository<T extends Entity> extends Repository<T> {
   final _firestore = FirebaseFirestore.instance;
@@ -78,6 +79,16 @@ abstract class FirestoreRepository<T extends Entity> extends Repository<T> {
   Stream<BuiltList<T>> _deserialize(Stream<QuerySnapshot<Object?>> data) => data
       .map((it) => it.docs)
       .map((it) => it.map((e) => e.data()))
-      .map((it) => it.map((e) => deserialize<T>(e)))
+      .map(
+        (it) => it.map(
+          (e) {
+            try {
+              return deserialize<T>(e);
+            } catch (e) {
+              log.e(e);
+            }
+          },
+        ),
+      )
       .map((event) => event.whereType<T>().toBuiltList());
 }
