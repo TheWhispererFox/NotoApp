@@ -6,9 +6,9 @@ abstract class Repository<T extends Entity> {
 
   BuiltList<T> get data;
 
-  void dispose() {}
+  void dispose();
 
-  void add(T model) => throw UnimplementedError();
-  void update(T model) => throw UnimplementedError();
-  void remove(T model) => throw UnimplementedError();
+  void add(T model);
+  void update(T model);
+  void remove(T model);
 }

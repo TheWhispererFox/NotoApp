@@ -1,7 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:masonry_grid/masonry_grid.dart';
+import 'package:noto_app/app/locator.dart';
 import 'package:noto_app/app/material_auto_router.gr.dart';
+import 'package:noto_app/data/models/note.dart';
+import 'package:noto_app/data/repositories/firestore/firestore_note_repository.dart';
 import 'package:noto_app/domain/notes/notes_bloc.dart';
 import 'package:noto_app/domain/themes/theme_bloc.dart';
 import 'package:noto_app/ui/components/note_card.dart';
@@ -63,7 +66,11 @@ class _NotesViewState extends State<NotesView> with TickerProviderStateMixin {
               ),
             ),
             TextButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                final FirestoreNoteRepository repo = locator.get();
+
+                repo.add(Note(content: "testdata", title: "auf"));
+              },
               style: ButtonStyle(
                 padding: MaterialStateProperty.all(EdgeInsets.zero),
                 minimumSize: MaterialStateProperty.all(const Size(40, 35)),
