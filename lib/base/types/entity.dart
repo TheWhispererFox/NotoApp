@@ -23,10 +23,10 @@ extension EntityExtension on Entity {
 }
 
 void initEntity(EntityBuilder b) {
-  final now = DateTime.now();
+  final now = nowUtc();
 
   b
     ..id = genUuid()
-    ..createdAt = now.asUtc()
-    ..updatedAt = now.asUtc();
+    ..createdAt = now
+    ..updatedAt = now;
 }

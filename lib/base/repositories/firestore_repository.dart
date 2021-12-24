@@ -4,6 +4,7 @@ import 'package:noto_app/base/repositories/firestore_path.dart';
 import 'package:noto_app/base/repositories/repository.dart';
 import 'package:noto_app/base/types/entity.dart';
 import 'package:noto_app/data/serializers/serializers.dart';
+import 'package:noto_app/utils/extensions/date_extensions.dart';
 
 abstract class FirestoreRepository<T extends Entity> extends Repository<T> {
   final _firestore = FirebaseFirestore.instance;
@@ -40,7 +41,7 @@ abstract class FirestoreRepository<T extends Entity> extends Repository<T> {
     } else {
       collectionRef.doc(model.id).set(
             model.rebuild(
-              (b) => b..deletedAt = DateTime.now(),
+              (b) => b..deletedAt = nowUtc(),
             ),
           );
     }
@@ -59,9 +60,10 @@ abstract class FirestoreRepository<T extends Entity> extends Repository<T> {
     collectionRef.doc(model.id).set(
           serializers.serialize(
             model.rebuild(
-              (b) => b..updatedAt = DateTime.now(),
+              (b) => b..updatedAt = nowUtc(),
             ),
           ),
+          SetOptions(merge: true),
         );
   }
 

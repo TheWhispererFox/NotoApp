@@ -12,3 +12,5 @@ extension DateTimeExtension on DateTime {
     );
   }
 }
+
+DateTime nowUtc() => DateTime.now().asUtc();
