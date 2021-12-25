@@ -34,6 +34,7 @@ class NoteCard extends StatelessWidget {
           elevation: 0,
           child: Container(
             margin: const EdgeInsets.all(20),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [

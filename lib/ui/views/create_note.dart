@@ -20,8 +20,27 @@ class _CreateNoteState extends State<CreateNoteView> {
           icon: const Icon(Icons.navigate_before_outlined),
         ),
       ),
-      body: const Center(
-        child: Text('TODO: Make note creation form'),
+      body: Center(
+        child: Form(
+          child: Column(
+            children: <Widget>[
+              TextFormField(
+                decoration: const InputDecoration(
+                  hintText: 'Enter title of note here',
+                ),
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                  hintText: 'Enter note here',
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {},
+                child: const Text('Done'),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
