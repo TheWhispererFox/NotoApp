@@ -48,6 +48,17 @@ abstract class FirestoreRepository<T extends Entity> extends Repository<T> {
   }
 
   @override
+  Future<void> addOrUpdate(T model) async {
+    final doc = await collectionRef.where("id", isEqualTo: model.id).get();
+
+    if (doc.size == 0) {
+      add(model);
+    } else {
+      update(model);
+    }
+  }
+
+  @override
   void dispose() {}
 
   @override
