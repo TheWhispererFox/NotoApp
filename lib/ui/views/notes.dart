@@ -18,7 +18,19 @@ class NotesView extends StatefulWidget {
 }
 
 class _NotesViewState extends State<NotesView> with TickerProviderStateMixin {
-  late final NotesBloc _notesBloc = context.read();
+  late final NotesBloc _notesBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _notesBloc = context.read();
+  }
+
+  @override
+  void dispose() {
+    _notesBloc.dispose();
+    super.dispose();
+  }
 
   late final _tabController = TabController(length: 2, vsync: this);
 
@@ -153,7 +165,7 @@ class _NotesViewState extends State<NotesView> with TickerProviderStateMixin {
               },
             ),
           ),
-          Container(),
+          Container()
         ],
       ),
       backgroundColor: const Color(0xFF1f1d2a),
