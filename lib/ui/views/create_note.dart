@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:noto_app/app/locator.dart';
 import 'package:noto_app/data/models/note.dart';
 import 'package:noto_app/domain/create_note/create_note_bloc.dart';
-import 'package:provider/provider.dart';
 
 class CreateNoteView extends StatefulWidget {
   const CreateNoteView({Key? key, required this.note}) : super(key: key);
@@ -49,6 +49,11 @@ class _CreateNoteState extends State<CreateNoteView> {
                 child: const Text("Delete"),
               ),
             ],
+            onSelected: (value) {
+              if (value == 1) {
+                AutoRouter.of(context).pop();
+              }
+            },
           )
         ],
       ),

@@ -24,6 +24,6 @@ class NotesEvents {
   }
 
   void deleteNote() {
-    _bloc._noteRepository.delete(_bloc.state.note);
+    _bloc._noteRepository.delete(_bloc.state.note, deleteCompleteley: true);
   }
 }
