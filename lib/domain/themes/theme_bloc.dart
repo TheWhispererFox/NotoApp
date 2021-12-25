@@ -15,14 +15,18 @@ class ThemeEvents {
   void setBrightness(Brightness brightness) {
     bloc.updateState((b) => b..brightness = brightness);
   }
+
+  void switchTheme() {
+    if (bloc.state.themeMode == ThemeMode.dark) {
+      setThemeMode(ThemeMode.light);
+    } else {
+      setThemeMode(ThemeMode.dark);
+    }
+  }
 }
 
 class ThemeBloc extends Bloc<ThemeState, ThemeStateBuilder> {
-  ThemeBloc() : super(ThemeState.initial()) {
-    events.setThemeMode(
-      ThemeMode.light,
-    );
-  }
+  ThemeBloc() : super(ThemeState.initial());
 
   late final events = ThemeEvents(this);
 }

@@ -1,15 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:masonry_grid/masonry_grid.dart';
-import 'package:noto_app/app/locator.dart';
 import 'package:noto_app/app/material_auto_router.gr.dart';
-import 'package:noto_app/data/models/note.dart';
-import 'package:noto_app/data/repositories/firestore/firestore_note_repository.dart';
 import 'package:noto_app/domain/notes/notes_bloc.dart';
-import 'package:noto_app/domain/themes/theme_bloc.dart';
 import 'package:noto_app/ui/components/note_card.dart';
-import 'package:noto_app/ui/components/round_underline_tab_indicator.dart';
-import 'package:noto_app/utils/constants.dart' as constants;
 import 'package:noto_app/utils/extensions/stream_extension.dart';
 import 'package:provider/provider.dart';
 
@@ -49,93 +43,38 @@ class _NotesViewState extends State<NotesView> with TickerProviderStateMixin {
         child: const Icon(Icons.note_add_outlined),
       ),
       appBar: AppBar(
-        backgroundColor: constants.backgroundColor,
         elevation: 0,
         title: Row(
           children: <Widget>[
             const Text(
               'Notes',
               style: TextStyle(
-                color: Color(0xfffffffe),
                 fontSize: 24.0,
               ),
             ),
             const Spacer(),
-            TextButton(
+            IconButton(
               onPressed: () {},
-              style: ButtonStyle(
-                padding: MaterialStateProperty.all(EdgeInsets.zero),
-                minimumSize: MaterialStateProperty.all(const Size(40, 35)),
-                foregroundColor: MaterialStateProperty.resolveWith(
-                  constants.getColor,
-                ),
-                splashFactory: NoSplash.splashFactory,
-              ),
-              child: const Text(
-                'Edit',
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                ),
-              ),
-            ),
-            TextButton.icon(
-              onPressed: () {
-                final FirestoreNoteRepository repo = locator.get();
-
-                repo.add(Note(content: "testdata", title: "auf"));
-              },
-              style: ButtonStyle(
-                padding: MaterialStateProperty.all(EdgeInsets.zero),
-                minimumSize: MaterialStateProperty.all(const Size(40, 35)),
-                foregroundColor: MaterialStateProperty.resolveWith(
-                  constants.getColor,
-                ),
-                splashFactory: NoSplash.splashFactory,
-              ),
+              splashRadius: 24,
               icon: const Icon(
                 Icons.search_outlined,
                 size: 24.0,
                 semanticLabel: 'Search',
               ),
-              label: const Text(''),
             ),
-            TextButton.icon(
-              onPressed: () {
-                final themeBloc = context.read<ThemeBloc>();
-
-                if (themeBloc.state.themeMode == ThemeMode.dark) {
-                  themeBloc.events.setThemeMode(ThemeMode.light);
-                } else {
-                  themeBloc.events.setThemeMode(ThemeMode.dark);
-                }
-              },
-              style: ButtonStyle(
-                padding: MaterialStateProperty.all(EdgeInsets.zero),
-                minimumSize: MaterialStateProperty.all(const Size(40, 35)),
-                foregroundColor: MaterialStateProperty.resolveWith(
-                  constants.getColor,
-                ),
-                splashFactory: NoSplash.splashFactory,
-              ),
+            IconButton(
+              onPressed: () {},
+              splashRadius: 24,
               icon: const Icon(
                 Icons.pending_outlined,
                 size: 24.0,
                 semanticLabel: 'More',
               ),
-              label: const Text(''),
-            ),
+            )
           ],
         ),
         bottom: TabBar(
           controller: _tabController,
-          indicatorSize: TabBarIndicatorSize.label,
-          unselectedLabelColor: const Color(0xFF868591),
-          labelColor: const Color(0xFFf3c060),
-          labelStyle: const TextStyle(fontFamily: 'Roboto'),
-          unselectedLabelStyle: const TextStyle(fontFamily: 'Roboto'),
-          indicator: const RoundUnderlineTabIndicator(
-            borderSide: BorderSide(color: Color(0xFFF3C060), width: 5),
-          ),
           tabs: const [
             Tab(text: 'All'),
             Tab(text: 'Folders'),
@@ -176,7 +115,6 @@ class _NotesViewState extends State<NotesView> with TickerProviderStateMixin {
           Container()
         ],
       ),
-      backgroundColor: const Color(0xFF1f1d2a),
     );
   }
 }
