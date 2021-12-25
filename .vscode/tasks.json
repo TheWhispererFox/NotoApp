@@ -23,7 +23,6 @@
       "type": "dart",
       "command": "dart",
       "args": [
-        "dart",
         "run",
         "dart_code_metrics:metrics",
         "analyze",
