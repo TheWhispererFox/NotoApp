@@ -8,9 +8,13 @@ abstract class Repository<T extends Entity> {
 
   void dispose();
 
-  void add(T model);
+  Future<String> add(T model);
 
-  void update(T model);
+  Future<void> update(T model);
 
-  void delete(T model);
+  Future<void> delete(T model);
+
+  Future<T?> get(String id);
+
+  Stream<T?> getStream(String id);
 }

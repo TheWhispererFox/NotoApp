@@ -5,13 +5,12 @@ import 'package:noto_app/base/repositories/repository.dart';
 import 'package:noto_app/base/types/entity.dart';
 import 'package:noto_app/data/serializers/serializers.dart';
 import 'package:noto_app/utils/extensions/date_extensions.dart';
-import 'package:noto_app/utils/log.dart';
 
 abstract class FirestoreRepository<T extends Entity> extends Repository<T> {
   final _firestore = FirebaseFirestore.instance;
 
   @override
-  void add(T model) {
+  Future<String> add(T model) {
     final doc = collectionRef.doc(model.id);
     final batch = _firestore.batch();
 
@@ -25,7 +24,7 @@ abstract class FirestoreRepository<T extends Entity> extends Repository<T> {
       SetOptions(merge: true),
     );
 
-    batch.commit();
+    return batch.commit().then((_) => doc.id);
   }
 
   @override
@@ -33,14 +32,14 @@ abstract class FirestoreRepository<T extends Entity> extends Repository<T> {
   BuiltList<T> get data => throw UnimplementedError();
 
   @override
-  void delete(
+  Future<void> delete(
     T model, {
     bool deleteCompleteley = false,
   }) {
     if (deleteCompleteley) {
-      collectionRef.doc(model.id).delete();
+      return collectionRef.doc(model.id).delete();
     } else {
-      collectionRef.doc(model.id).set(
+      return collectionRef.doc(model.id).set(
             model.rebuild(
               (b) => b..deletedAt = nowUtc(),
             ),
@@ -57,8 +56,8 @@ abstract class FirestoreRepository<T extends Entity> extends Repository<T> {
       );
 
   @override
-  void update(T model) {
-    collectionRef.doc(model.id).set(
+  Future<void> update(T model) {
+    return collectionRef.doc(model.id).set(
           serializers.serialize(
             model.rebuild(
               (b) => b..updatedAt = nowUtc(),
@@ -67,6 +66,16 @@ abstract class FirestoreRepository<T extends Entity> extends Repository<T> {
           SetOptions(merge: true),
         );
   }
+
+  @override
+  Future<T?> get(String id) =>
+      collectionRef.doc(id).get().then((value) => deserialize<T>(value.data()));
+
+  @override
+  Stream<T?> getStream(String id) => collectionRef
+      .doc(id)
+      .snapshots()
+      .map((event) => deserialize<T>(event.data()));
 
   FirestorePath get path;
 
@@ -81,13 +90,7 @@ abstract class FirestoreRepository<T extends Entity> extends Repository<T> {
       .map((it) => it.map((e) => e.data()))
       .map(
         (it) => it.map(
-          (e) {
-            try {
-              return deserialize<T>(e);
-            } catch (e) {
-              log.e(e);
-            }
-          },
+          (e) => deserialize<T>(e),
         ),
       )
       .map((event) => event.whereType<T>().toBuiltList());

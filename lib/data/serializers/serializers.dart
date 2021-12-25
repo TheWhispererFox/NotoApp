@@ -2,6 +2,7 @@ import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
 import 'package:noto_app/data/models/note.dart';
+import 'package:noto_app/utils/log.dart';
 
 part 'serializers.g.dart';
 
@@ -14,24 +15,32 @@ final Serializers serializers = (_$serializers.toBuilder()
     .build();
 
 T? deserialize<T>(dynamic value) {
-  final serializer = serializers.serializerForType(T) as Serializer<T>?;
+  try {
+    final serializer = serializers.serializerForType(T) as Serializer<T>?;
 
-  if (serializer != null) {
-    return serializers.deserializeWith<T>(
-      serializer,
-      value,
-    );
+    if (serializer != null) {
+      return serializers.deserializeWith<T>(
+        serializer,
+        value,
+      );
+    }
+  } catch (e) {
+    log.e(e);
   }
 }
 
 Object? serialize<T>(T value) {
-  final serializer = serializers.serializerForType(T) as Serializer<T>?;
+  try {
+    final serializer = serializers.serializerForType(T) as Serializer<T>?;
 
-  if (serializer != null) {
-    return serializers.serializeWith(
-      serializer,
-      value,
-    );
+    if (serializer != null) {
+      return serializers.serializeWith(
+        serializer,
+        value,
+      );
+    }
+  } catch (e) {
+    log.e(e);
   }
 }
 
