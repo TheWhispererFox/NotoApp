@@ -28,8 +28,7 @@ abstract class FirestoreRepository<T extends Entity> extends Repository<T> {
   }
 
   @override
-  // TODO: implement data
-  BuiltList<T> get data => throw UnimplementedError();
+  Future<BuiltList<T>> get data => stream.last;
 
   @override
   Future<void> delete(

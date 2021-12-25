@@ -4,7 +4,7 @@ import 'package:noto_app/base/types/entity.dart';
 abstract class Repository<T extends Entity> {
   Stream<BuiltList<T>> get stream;
 
-  BuiltList<T> get data;
+  Future<BuiltList<T>> get data;
 
   void dispose();
 
