@@ -32,6 +32,7 @@ class _NotesViewState extends State<NotesView> with TickerProviderStateMixin {
   @override
   void dispose() {
     _notesBloc.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 

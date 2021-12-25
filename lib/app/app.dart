@@ -25,6 +25,7 @@ class App extends StatelessWidget {
         Provider<NotesBloc>(
           create: (_) => NotesBloc(),
           dispose: (_, bloc) => bloc.dispose(),
+          lazy: true,
         ),
       ],
       builder: (context, _) {

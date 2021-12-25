@@ -25,7 +25,4 @@ class ThemeBloc extends Bloc<ThemeState, ThemeStateBuilder> {
   }
 
   late final events = ThemeEvents(this);
-
-  @override
-  bool get debug => true;
 }
