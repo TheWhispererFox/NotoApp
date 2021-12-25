@@ -26,8 +26,6 @@ abstract class Bloc<TState extends Built<TState, TStateBuilder>,
 
   TState get state => _stateSubject.value;
 
-  CompositeSubscription get subscriptions => _subscriptions;
-
   TState get initialState => _initialState;
 
   Future<void> init() {
