@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:noto_app/app/locator.dart';
 import 'package:noto_app/base/bloc/bloc.dart';
 
 import 'package:noto_app/domain/themes/theme_state.dart';
+import 'package:noto_app/services/preferences_service.dart';
 
 class ThemeEvents {
   ThemeEvents(this._bloc);
@@ -10,6 +12,7 @@ class ThemeEvents {
 
   void setThemeMode(ThemeMode themeMode) {
     _bloc.updateState((b) => b..themeMode = themeMode);
+    _bloc._preferencesService.darkMode = themeMode == ThemeMode.dark;
   }
 
   void setBrightness(Brightness brightness) {
@@ -26,7 +29,15 @@ class ThemeEvents {
 }
 
 class ThemeBloc extends Bloc<ThemeState, ThemeStateBuilder> {
-  ThemeBloc() : super(ThemeState.initial());
+  late final PreferencesService _preferencesService;
+
+  ThemeBloc() : super(ThemeState.initial()) {
+    _preferencesService = locator.get();
+
+    events.setThemeMode(
+      _preferencesService.darkMode ? ThemeMode.dark : ThemeMode.light,
+    );
+  }
 
   late final events = ThemeEvents(this);
 }

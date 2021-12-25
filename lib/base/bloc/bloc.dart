@@ -8,7 +8,7 @@ import 'package:rxdart/rxdart.dart';
 abstract class Bloc<TState extends Built<TState, TStateBuilder>,
     TStateBuilder extends Builder<TState, TStateBuilder>> {
   Bloc(this._initialState, {this.debug = false}) {
-    log.d("$stateTag.constructor");
+    log.d("constructor");
 
     addState(_initialState);
 
