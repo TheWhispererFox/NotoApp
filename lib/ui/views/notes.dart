@@ -4,6 +4,7 @@ import 'package:masonry_grid/masonry_grid.dart';
 import 'package:noto_app/app/material_auto_router.gr.dart';
 import 'package:noto_app/domain/notes/notes_bloc.dart';
 import 'package:noto_app/ui/components/note_card.dart';
+import 'package:noto_app/ui/constants.dart';
 import 'package:noto_app/utils/extensions/stream_extension.dart';
 import 'package:provider/provider.dart';
 
@@ -63,12 +64,14 @@ class _NotesViewState extends State<NotesView> with TickerProviderStateMixin {
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                AutoRouter.of(context).push(const SettingsRoute());
+              },
               splashRadius: 24,
               icon: const Icon(
-                Icons.pending_outlined,
+                Icons.settings,
                 size: 24.0,
-                semanticLabel: 'More',
+                semanticLabel: 'Settings',
               ),
             )
           ],
@@ -84,33 +87,30 @@ class _NotesViewState extends State<NotesView> with TickerProviderStateMixin {
       body: TabBarView(
         controller: _tabController,
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: _notesBloc.getNotes().builderNoLoading(
-              onData: (_, notes) {
-                return CustomScrollView(
-                  slivers: [
-                    SliverToBoxAdapter(
-                      child: MasonryGrid(
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 10,
-                        column: 2,
-                        children: notes
-                            .map(
-                              (it) => NoteCard(
-                                note: it,
-                              ),
-                            )
-                            .toList(),
-                      ),
+          _notesBloc.getNotes().builderNoLoading(
+            onData: (_, notes) {
+              return CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: MasonryGrid(
+                      crossAxisSpacing: 4,
+                      mainAxisSpacing: 4,
+                      column: 2,
+                      children: notes
+                          .map(
+                            (it) => NoteCard(
+                              note: it,
+                            ),
+                          )
+                          .toList(),
                     ),
-                  ],
-                  physics: const BouncingScrollPhysics(
-                    parent: AlwaysScrollableScrollPhysics(),
                   ),
-                );
-              },
-            ),
+                ],
+                physics: const BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics(),
+                ),
+              );
+            },
           ),
           Container()
         ],

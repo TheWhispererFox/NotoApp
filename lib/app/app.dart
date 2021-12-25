@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:noto_app/app/locator.dart';
 import 'package:noto_app/app/material_auto_router.gr.dart';
 import 'package:noto_app/app/themes.dart' as themes;
 import 'package:noto_app/domain/notes/notes_bloc.dart';
@@ -12,7 +11,8 @@ class App extends StatelessWidget {
 
   static String appName = "Noto App";
 
-  final AppRouter _appRouter = locator.get();
+  final _key = GlobalKey<NavigatorState>();
+  late final _appRouter = AppRouter(_key);
 
   @override
   Widget build(BuildContext context) {

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:noto_app/data/models/note.dart';
 import 'package:noto_app/domain/create_note/create_note_bloc.dart';
+import 'package:noto_app/ui/constants.dart';
 
 class CreateNoteView extends StatefulWidget {
   const CreateNoteView({Key? key, required this.note}) : super(key: key);
@@ -56,34 +57,37 @@ class _CreateNoteState extends State<CreateNoteView> {
           )
         ],
       ),
-      body: Center(
-        child: Form(
-          child: Column(
-            children: <Widget>[
-              TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'Enter title of note here',
+      body: Padding(
+        padding: defaultPadding,
+        child: Center(
+          child: Form(
+            child: Column(
+              children: <Widget>[
+                TextFormField(
+                  decoration: const InputDecoration(
+                    hintText: 'Enter title of note here',
+                  ),
+                  controller: _titleController,
+                  onChanged: (value) =>
+                      _bloc.updateState((b) => b..note.title = value),
                 ),
-                controller: _titleController,
-                onChanged: (value) =>
-                    _bloc.updateState((b) => b..note.title = value),
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'Enter note here',
+                TextFormField(
+                  decoration: const InputDecoration(
+                    hintText: 'Enter note here',
+                  ),
+                  controller: _contentController,
+                  onChanged: (value) =>
+                      _bloc.updateState((b) => b..note.content = value),
                 ),
-                controller: _contentController,
-                onChanged: (value) =>
-                    _bloc.updateState((b) => b..note.content = value),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  _bloc.events.saveNote();
-                  AutoRouter.of(context).pop();
-                },
-                child: const Text('Done'),
-              ),
-            ],
+                ElevatedButton(
+                  onPressed: () {
+                    _bloc.events.saveNote();
+                    AutoRouter.of(context).pop();
+                  },
+                  child: const Text('Done'),
+                ),
+              ],
+            ),
           ),
         ),
       ),
