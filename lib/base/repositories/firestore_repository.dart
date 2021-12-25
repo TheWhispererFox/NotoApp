@@ -39,11 +39,12 @@ abstract class FirestoreRepository<T extends Entity> extends Repository<T> {
       return collectionRef.doc(model.id).delete();
     } else {
       return collectionRef.doc(model.id).set(
-            serialize(
+            serializers.serialize(
               model.rebuild(
                 (b) => b..deletedAt = nowUtc(),
               ),
             ),
+            SetOptions(merge: true),
           );
     }
   }
