@@ -4,7 +4,6 @@ import 'package:masonry_grid/masonry_grid.dart';
 import 'package:noto_app/app/material_auto_router.gr.dart';
 import 'package:noto_app/domain/notes/notes_bloc.dart';
 import 'package:noto_app/ui/components/note_card.dart';
-import 'package:noto_app/ui/constants.dart';
 import 'package:noto_app/utils/extensions/stream_extension.dart';
 import 'package:provider/provider.dart';
 
