@@ -10,6 +10,8 @@ import 'package:rxdart/rxdart.dart';
 abstract class Bloc<TState extends Built<TState, TStateBuilder>,
     TStateBuilder extends Builder<TState, TStateBuilder>> {
   Bloc(this._initialState, {this.debug = false}) {
+    log.d("$stateTag.constructor");
+
     addState(_initialState);
 
     init();
@@ -31,6 +33,7 @@ abstract class Bloc<TState extends Built<TState, TStateBuilder>,
   TState get initialState => _initialState;
 
   Future<void> init() {
+    log.d("$stateTag.init");
     return Future.value();
   }
 
@@ -44,19 +47,15 @@ abstract class Bloc<TState extends Built<TState, TStateBuilder>,
       _stateSubject.add(state);
     }
 
-    if (debug) log.d("$stateTag : addState", state);
+    if (debug) log.d("$stateTag.addState\nstate: $state");
   }
 
   void updateState(Function(TStateBuilder b) updates) {
     if (debug) {
-      log.d(stateTag, "updateState");
-      log.d("$stateTag : previousState", state);
+      log.d("$stateTag.updateState\npreviousState: $state");
     }
 
     addState(state.rebuild(updates));
-    if (debug) {
-      log.d("$stateTag : newState", state);
-    }
   }
 
   StreamSubscription addSubscription(StreamSubscription streamSubscription) {
