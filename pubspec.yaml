@@ -33,6 +33,7 @@ dependencies:
   mockito: ^5.0.17
   freezed_annotation: ^1.1.0
   google_fonts: ^2.1.1
+  shared_preferences: ^2.0.11
 
 dev_dependencies:
   lint: ^1.0.0
