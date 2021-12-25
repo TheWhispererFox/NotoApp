@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:noto_app/app/locator.dart';
 import 'package:noto_app/data/models/note.dart';
 import 'package:noto_app/domain/create_note/create_note_bloc.dart';
 
@@ -15,16 +14,8 @@ class CreateNoteView extends StatefulWidget {
 
 class _CreateNoteState extends State<CreateNoteView> {
   late final CreateNoteBloc _bloc;
-  late TextEditingController _titleController;
   late TextEditingController _contentController;
-
-  @override
-  void initState() {
-    super.initState();
-    _bloc = CreateNoteBloc(widget.note);
-    _titleController = TextEditingController(text: _bloc.state.note.title);
-    _contentController = TextEditingController(text: _bloc.state.note.content);
-  }
+  late TextEditingController _titleController;
 
   @override
   void dispose() {
@@ -32,6 +23,14 @@ class _CreateNoteState extends State<CreateNoteView> {
     _contentController.dispose();
     _titleController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _bloc = CreateNoteBloc(widget.note);
+    _titleController = TextEditingController(text: _bloc.state.note.title);
+    _contentController = TextEditingController(text: _bloc.state.note.content);
   }
 
   @override

@@ -1,13 +1,8 @@
-import 'dart:math';
-
 import 'package:auto_route/auto_route.dart';
-import 'package:noto_app/app/material_auto_router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:noto_app/app/locator.dart';
+import 'package:noto_app/app/material_auto_router.gr.dart';
 import 'package:noto_app/data/models/note.dart';
-import 'package:noto_app/data/repositories/firestore/firestore_note_repository.dart';
-import 'package:noto_app/ui/views/create_note.dart';
 
 class NoteCard extends StatelessWidget {
   const NoteCard({
