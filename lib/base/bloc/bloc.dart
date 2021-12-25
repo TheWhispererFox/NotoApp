@@ -29,7 +29,6 @@ abstract class Bloc<TState extends Built<TState, TStateBuilder>,
   TState get initialState => _initialState;
 
   Future<void> init() {
-    log.d("$stateTag.init");
     return Future.value();
   }
 

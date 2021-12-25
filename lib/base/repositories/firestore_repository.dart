@@ -14,7 +14,7 @@ abstract class FirestoreRepository<T extends Entity> extends Repository<T> {
     final doc = collectionRef.doc(model.id);
     final batch = _firestore.batch();
 
-    batch.set(doc, serializers.serialize(model));
+    batch.set(doc, serialize(model));
 
     batch.set(
       doc,
@@ -39,7 +39,7 @@ abstract class FirestoreRepository<T extends Entity> extends Repository<T> {
       return collectionRef.doc(model.id).delete();
     } else {
       return collectionRef.doc(model.id).set(
-            serializers.serialize(
+            serialize(
               model.rebuild(
                 (b) => b..deletedAt = nowUtc(),
               ),
@@ -71,7 +71,7 @@ abstract class FirestoreRepository<T extends Entity> extends Repository<T> {
   @override
   Future<void> update(T model) {
     return collectionRef.doc(model.id).set(
-          serializers.serialize(
+          serialize(
             model.rebuild(
               (b) => b..updatedAt = nowUtc(),
             ),

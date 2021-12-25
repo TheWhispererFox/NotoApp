@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_dynamic_calls
+
 import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
@@ -24,24 +26,13 @@ T? deserialize<T>(dynamic value) {
         value,
       );
     }
-  } catch (e) {
-    log.e(e);
+  } on Exception catch (e) {
+    log.e("${value["\$"]}: ${value["id"]}\n$e");
   }
 }
 
 Object? serialize<T>(T value) {
-  try {
-    final serializer = serializers.serializerForType(T) as Serializer<T>?;
-
-    if (serializer != null) {
-      return serializers.serializeWith(
-        serializer,
-        value,
-      );
-    }
-  } catch (e) {
-    log.e(e);
-  }
+  return serializers.serialize(value);
 }
 
 List<T> deserializeIterable<T>(Iterable<Map<dynamic, dynamic>> value) => value
