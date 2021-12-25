@@ -18,6 +18,10 @@ abstract class Note implements Built<Note, NoteBuilder>, Entity {
     });
   }
 
+  factory Note.empty() {
+    return Note(content: '', title: 'Untitled');
+  }
+
   Note._();
 
   static Serializer<Note> get serializer => _$noteSerializer;
