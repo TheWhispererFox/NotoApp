@@ -10,6 +10,8 @@ abstract class Repository<T extends Entity> {
 
   Future<String> add(T model);
 
+  Future<void> addOrUpdate(T model);
+
   Future<void> update(T model);
 
   Future<void> delete(T model);

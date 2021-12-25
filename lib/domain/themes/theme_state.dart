@@ -13,7 +13,7 @@ abstract class ThemeState implements Built<ThemeState, ThemeStateBuilder> {
   factory ThemeState.initial() {
     return ThemeState(
       (b) => b
-        ..themeMode = ThemeMode.light
+        ..themeMode = ThemeMode.dark
         ..brightness = Brightness.light,
     );
   }
