@@ -6,3 +6,6 @@ analyzer:
     - '**/*.freezed.dart'
     - '**/*.config.dart'
     - '**/*.gr.dart'
+linter:
+  rules:
+    avoid_classes_with_only_static_members: false
