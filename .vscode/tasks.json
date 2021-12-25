@@ -18,6 +18,19 @@
       ],
       "group": "build",
       "label": "flutter: flutter pub run build_runner build --delete-conflicting-outputs"
+    },
+    {
+      "type": "dart",
+      "command": "dart",
+      "args": [
+        "dart",
+        "run",
+        "dart_code_metrics:metrics",
+        "analyze",
+        "lib"
+      ],
+      "group": "build",
+      "label": "dart: dart run dart_code_metrics:metrics analyze lib"
     }
   ]
 }
