@@ -19,7 +19,11 @@ class NotesEvents {
 
   final CreateNoteBloc _bloc;
 
-  saveNote() {
-    //TODO: Save note to repository
+  void saveNote() {
+    _bloc._noteRepository.addOrUpdate(_bloc.state.note);
+  }
+
+  void deleteNote() {
+    _bloc._noteRepository.delete(_bloc.state.note);
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:noto_app/app/locator.dart';
 import 'package:noto_app/app/material_auto_router.gr.dart';
 import 'package:noto_app/app/themes.dart' as themes;
+import 'package:noto_app/domain/create_note/create_note_bloc.dart';
 import 'package:noto_app/domain/notes/notes_bloc.dart';
 import 'package:noto_app/domain/themes/theme_bloc.dart';
 import 'package:noto_app/utils/extensions/stream_extension.dart';

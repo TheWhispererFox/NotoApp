@@ -8,12 +8,14 @@ part of 'create_note_state.dart';
 
 class _$CreateNoteState extends CreateNoteState {
   @override
-  final Note? note;
+  final Note note;
 
   factory _$CreateNoteState([void Function(CreateNoteStateBuilder)? updates]) =>
       (new CreateNoteStateBuilder()..update(updates)).build();
 
-  _$CreateNoteState._({this.note}) : super._();
+  _$CreateNoteState._({required this.note}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(note, 'CreateNoteState', 'note');
+  }
 
   @override
   CreateNoteState rebuild(void Function(CreateNoteStateBuilder) updates) =>
@@ -54,7 +56,7 @@ class CreateNoteStateBuilder
   CreateNoteStateBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _note = $v.note?.toBuilder();
+      _note = $v.note.toBuilder();
       _$v = null;
     }
     return this;
@@ -75,12 +77,12 @@ class CreateNoteStateBuilder
   _$CreateNoteState build() {
     _$CreateNoteState _$result;
     try {
-      _$result = _$v ?? new _$CreateNoteState._(note: _note?.build());
+      _$result = _$v ?? new _$CreateNoteState._(note: note.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'note';
-        _note?.build();
+        note.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'CreateNoteState', _$failedField, e.toString());
