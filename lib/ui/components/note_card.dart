@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:noto_app/app/material_auto_router.gr.dart';
 import 'package:noto_app/data/models/note.dart';
-import 'package:noto_app/ui/constants.dart';
 
 class NoteCard extends StatelessWidget {
   const NoteCard({
@@ -21,10 +20,9 @@ class NoteCard extends StatelessWidget {
         AutoRouter.of(context).push(CreateNotePageRoute(note: note));
       },
       child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        elevation: 0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Container(
-          padding: defaultPadding,
+          padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

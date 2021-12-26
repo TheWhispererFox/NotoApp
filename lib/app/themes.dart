@@ -1,22 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:noto_app/ui/components/round_underline_tab_indicator.dart';
 
+const _primaryColor = Color(0xFFbb86fc);
+const _secondaryColor = Color(0xFF03dac5);
+
 final dark = ThemeData.dark().copyWith(
+  scaffoldBackgroundColor: Colors.grey.shade900,
+  colorScheme: const ColorScheme.dark(
+    primary: _primaryColor,
+    secondary: _secondaryColor,
+    secondaryVariant: Color(0xFF3700b3),
+  ),
   splashFactory: NoSplash.splashFactory,
-  cardColor: const Color(0xFF262635),
-  backgroundColor: const Color(0xff6f70c2),
+  cardColor: const Color(0xFF1e1e1e),
+  backgroundColor: const Color(0xFF282828),
   tabBarTheme: const TabBarTheme(
-    unselectedLabelColor: Color(0xFF868591),
-    labelColor: Color(0xFFf3c060),
+    labelColor: _primaryColor,
     indicator: RoundUnderlineTabIndicator(
-      borderSide: BorderSide(color: Color(0xFFF3C060), width: 5),
+      borderSide: BorderSide(color: _primaryColor, width: 5),
     ),
     indicatorSize: TabBarIndicatorSize.label,
     labelStyle: TextStyle(fontFamily: 'Roboto'),
     unselectedLabelStyle: TextStyle(fontFamily: 'Roboto'),
   ),
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    backgroundColor: _primaryColor,
+  ),
 );
 
 final light = ThemeData.light().copyWith(
   splashFactory: NoSplash.splashFactory,
+  colorScheme: const ColorScheme.light(
+    primary: _primaryColor,
+    secondary: _secondaryColor,
+    secondaryVariant: Color(0xFF3700b3),
+  ),
+  tabBarTheme: const TabBarTheme(
+    labelColor: _primaryColor,
+    indicator: RoundUnderlineTabIndicator(
+      borderSide: BorderSide(color: _primaryColor, width: 5),
+    ),
+    indicatorSize: TabBarIndicatorSize.label,
+    labelStyle: TextStyle(fontFamily: 'Roboto'),
+    unselectedLabelStyle: TextStyle(fontFamily: 'Roboto'),
+  ),
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    backgroundColor: _primaryColor,
+  ),
 );
