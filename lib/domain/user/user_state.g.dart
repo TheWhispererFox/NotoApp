@@ -8,13 +8,15 @@ part of 'user_state.dart';
 
 class _$UserState extends UserState {
   @override
-  final User user;
+  final User? user;
+  @override
+  final ErrorCode error;
 
   factory _$UserState([void Function(UserStateBuilder)? updates]) =>
       (new UserStateBuilder()..update(updates)).build();
 
-  _$UserState._({required this.user}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(user, 'UserState', 'user');
+  _$UserState._({this.user, required this.error}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(error, 'UserState', 'error');
   }
 
   @override
@@ -27,17 +29,19 @@ class _$UserState extends UserState {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is UserState && user == other.user;
+    return other is UserState && user == other.user && error == other.error;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(0, user.hashCode));
+    return $jf($jc($jc(0, user.hashCode), error.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('UserState')..add('user', user))
+    return (newBuiltValueToStringHelper('UserState')
+          ..add('user', user)
+          ..add('error', error))
         .toString();
   }
 }
@@ -49,12 +53,17 @@ class UserStateBuilder implements Builder<UserState, UserStateBuilder> {
   User? get user => _$this._user;
   set user(User? user) => _$this._user = user;
 
+  ErrorCode? _error;
+  ErrorCode? get error => _$this._error;
+  set error(ErrorCode? error) => _$this._error = error;
+
   UserStateBuilder();
 
   UserStateBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _user = $v.user;
+      _error = $v.error;
       _$v = null;
     }
     return this;
@@ -75,8 +84,9 @@ class UserStateBuilder implements Builder<UserState, UserStateBuilder> {
   _$UserState build() {
     final _$result = _$v ??
         new _$UserState._(
-            user: BuiltValueNullFieldError.checkNotNull(
-                user, 'UserState', 'user'));
+            user: user,
+            error: BuiltValueNullFieldError.checkNotNull(
+                error, 'UserState', 'error'));
     replace(_$result);
     return _$result;
   }
