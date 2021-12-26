@@ -33,9 +33,9 @@ class AppRouter extends _i5.RootStackRouter {
           routeData: routeData,
           child: _i2.CreateNotePage(key: args.key, note: args.note));
     },
-    SettingsRoute.name: (routeData) {
+    SettingsPageRoute.name: (routeData) {
       return _i5.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i3.Settings());
+          routeData: routeData, child: const _i3.SettingsPage());
     },
     RegisterPageRoute.name: (routeData) {
       return _i5.MaterialPageX<dynamic>(
@@ -47,7 +47,7 @@ class AppRouter extends _i5.RootStackRouter {
   List<_i5.RouteConfig> get routes => [
         _i5.RouteConfig(NotesPageRoute.name, path: '/notes-page'),
         _i5.RouteConfig(CreateNotePageRoute.name, path: '/create-note-page'),
-        _i5.RouteConfig(SettingsRoute.name, path: '/Settings'),
+        _i5.RouteConfig(SettingsPageRoute.name, path: '/settings-page'),
         _i5.RouteConfig(RegisterPageRoute.name, path: '/')
       ];
 }
@@ -85,11 +85,12 @@ class CreateNotePageRouteArgs {
 }
 
 /// generated route for
-/// [_i3.Settings]
-class SettingsRoute extends _i5.PageRouteInfo<void> {
-  const SettingsRoute() : super(SettingsRoute.name, path: '/Settings');
+/// [_i3.SettingsPage]
+class SettingsPageRoute extends _i5.PageRouteInfo<void> {
+  const SettingsPageRoute()
+      : super(SettingsPageRoute.name, path: '/settings-page');
 
-  static const String name = 'SettingsRoute';
+  static const String name = 'SettingsPageRoute';
 }
 
 /// generated route for

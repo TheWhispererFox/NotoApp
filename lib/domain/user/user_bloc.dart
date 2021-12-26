@@ -1,6 +1,3 @@
-import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:noto_app/app/locator.dart';
 import 'package:noto_app/base/bloc/bloc.dart';
 import 'package:noto_app/domain/user/user_state.dart';

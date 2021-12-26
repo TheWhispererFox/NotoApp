@@ -9,7 +9,7 @@ import 'package:noto_app/ui/pages/settings_page.dart';
   routes: <AutoRoute>[
     AutoRoute(page: NotesPage),
     AutoRoute(page: CreateNotePage),
-    AutoRoute(page: Settings),
+    AutoRoute(page: SettingsPage),
     AutoRoute(page: RegisterPage, initial: true),
   ],
 )
