@@ -34,6 +34,7 @@ dependencies:
   google_fonts: ^2.1.1
   shared_preferences: ^2.0.11
   firebase_auth: ^3.3.4
+  flutterfire_ui: ^0.3.0
 
 dev_dependencies:
   lint: ^1.0.0
