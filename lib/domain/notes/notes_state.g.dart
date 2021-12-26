@@ -7,10 +7,16 @@ part of 'notes_state.dart';
 // **************************************************************************
 
 class _$NotesState extends NotesState {
+  @override
+  final BuiltList<Note> selectedNotes;
+
   factory _$NotesState([void Function(NotesStateBuilder)? updates]) =>
       (new NotesStateBuilder()..update(updates)).build();
 
-  _$NotesState._() : super._();
+  _$NotesState._({required this.selectedNotes}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        selectedNotes, 'NotesState', 'selectedNotes');
+  }
 
   @override
   NotesState rebuild(void Function(NotesStateBuilder) updates) =>
@@ -22,24 +28,41 @@ class _$NotesState extends NotesState {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is NotesState;
+    return other is NotesState && selectedNotes == other.selectedNotes;
   }
 
   @override
   int get hashCode {
-    return 637387391;
+    return $jf($jc(0, selectedNotes.hashCode));
   }
 
   @override
   String toString() {
-    return newBuiltValueToStringHelper('NotesState').toString();
+    return (newBuiltValueToStringHelper('NotesState')
+          ..add('selectedNotes', selectedNotes))
+        .toString();
   }
 }
 
 class NotesStateBuilder implements Builder<NotesState, NotesStateBuilder> {
   _$NotesState? _$v;
 
+  ListBuilder<Note>? _selectedNotes;
+  ListBuilder<Note> get selectedNotes =>
+      _$this._selectedNotes ??= new ListBuilder<Note>();
+  set selectedNotes(ListBuilder<Note>? selectedNotes) =>
+      _$this._selectedNotes = selectedNotes;
+
   NotesStateBuilder();
+
+  NotesStateBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _selectedNotes = $v.selectedNotes.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
 
   @override
   void replace(NotesState other) {
@@ -54,7 +77,21 @@ class NotesStateBuilder implements Builder<NotesState, NotesStateBuilder> {
 
   @override
   _$NotesState build() {
-    final _$result = _$v ?? new _$NotesState._();
+    _$NotesState _$result;
+    try {
+      _$result =
+          _$v ?? new _$NotesState._(selectedNotes: selectedNotes.build());
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'selectedNotes';
+        selectedNotes.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'NotesState', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

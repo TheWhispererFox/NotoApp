@@ -1,10 +1,14 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:noto_app/app/material_auto_router.gr.dart';
+import 'package:noto_app/data/models/note.dart';
 import 'package:noto_app/domain/notes/notes_bloc.dart';
+import 'package:noto_app/domain/notes/notes_state.dart';
 import 'package:noto_app/ui/components/note_card.dart';
 import 'package:noto_app/utils/extensions/stream_extension.dart';
 import 'package:provider/provider.dart';
+import 'package:rxdart/rxdart.dart';
 
 class NotesPage extends StatefulWidget {
   const NotesPage({Key? key}) : super(key: key);
@@ -52,25 +56,62 @@ class _NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
               ),
             ),
             const Spacer(),
-            IconButton(
-              onPressed: () {},
-              splashRadius: 24,
-              icon: const Icon(
-                Icons.search_outlined,
-                size: 24.0,
-                semanticLabel: 'Search',
-              ),
-            ),
-            IconButton(
-              onPressed: () {
-                AutoRouter.of(context).push(const SettingsRoute());
+            _notesBloc.stateStream.builderNoLoading(
+              onData: (context, state) {
+                if (state.selectedNotes.isEmpty) {
+                  return Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        splashRadius: 24,
+                        icon: const Icon(
+                          Icons.search_outlined,
+                          size: 24.0,
+                          semanticLabel: 'Search',
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          AutoRouter.of(context).push(const SettingsRoute());
+                        },
+                        splashRadius: 24,
+                        icon: const Icon(
+                          Icons.settings,
+                          size: 24.0,
+                          semanticLabel: 'Settings',
+                        ),
+                      )
+                    ],
+                  );
+                } else {
+                  return Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          _notesBloc.events.removeAllSelectedNotes();
+                        },
+                        splashRadius: 24,
+                        icon: const Icon(
+                          Icons.delete,
+                          size: 24.0,
+                          semanticLabel: 'Delete selected',
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          AutoRouter.of(context).push(const SettingsRoute());
+                        },
+                        splashRadius: 24,
+                        icon: const Icon(
+                          Icons.select_all,
+                          size: 24.0,
+                          semanticLabel: 'Select all',
+                        ),
+                      )
+                    ],
+                  );
+                }
               },
-              splashRadius: 24,
-              icon: const Icon(
-                Icons.settings,
-                size: 24.0,
-                semanticLabel: 'Settings',
-              ),
             )
           ],
         ),
@@ -85,22 +126,44 @@ class _NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
       body: TabBarView(
         controller: _tabController,
         children: [
-          _notesBloc.getNotes().builderNoLoading(
+          Rx.combineLatest2<BuiltList<Note>, NotesState, BuiltList<Note>>(
+            _notesBloc.getNotes(),
+            _notesBloc.stateStream,
+            (a, _) => a,
+          ).builderNoLoading(
             onData: (_, notes) {
-              return GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                physics: const BouncingScrollPhysics(
-                  parent: AlwaysScrollableScrollPhysics(),
-                ),
-                itemBuilder: (context, index) {
-                  final it = notes[index];
-                  return NoteCard(
-                    note: it,
-                  );
-                },
-              );
+              if (notes.isEmpty) {
+                return const Center(
+                  child: Text("No notes.\nAdd new notes to become better."),
+                );
+              } else {
+                return GridView.builder(
+                  itemCount: notes.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                  ),
+                  physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics(),
+                  ),
+                  itemBuilder: (context, index) {
+                    final it = notes[index];
+                    return NoteCard(
+                      note: it,
+                      isSelected: _notesBloc.isSelected(it),
+                      onTap: () {
+                        AutoRouter.of(context)
+                            .push(CreateNotePageRoute(note: it));
+                      },
+                      onLongPress: () {
+                        _notesBloc.events.select(it);
+                      },
+                      onSelectionChanged: (_) {
+                        _notesBloc.events.select(it);
+                      },
+                    );
+                  },
+                );
+              }
             },
           ),
           Container()
