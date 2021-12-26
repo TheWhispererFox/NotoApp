@@ -5,39 +5,33 @@ import 'package:noto_app/base/bloc/bloc.dart';
 import 'package:noto_app/domain/themes/theme_state.dart';
 import 'package:noto_app/services/preferences_service.dart';
 
-class ThemeEvents {
-  ThemeEvents(this._bloc);
+class ThemeBloc extends Bloc<ThemeState, ThemeStateBuilder> {
+  late final PreferencesService _preferencesService;
 
-  final ThemeBloc _bloc;
+  ThemeBloc({
+    required PreferencesService preferencesService,
+  }) : super(ThemeState.initial()) {
+    _preferencesService = preferencesService;
+
+    setThemeMode(
+      _preferencesService.darkMode ? ThemeMode.dark : ThemeMode.light,
+    );
+  }
 
   void setThemeMode(ThemeMode themeMode) {
-    _bloc.updateState((b) => b..themeMode = themeMode);
-    _bloc._preferencesService.darkMode = themeMode == ThemeMode.dark;
+    updateState((b) => b..themeMode = themeMode);
+    _preferencesService.darkMode = themeMode == ThemeMode.dark;
   }
 
   void setBrightness(Brightness brightness) {
-    _bloc.updateState((b) => b..brightness = brightness);
+    updateState((b) => b..brightness = brightness);
   }
 
   void switchTheme() {
-    if (_bloc.state.themeMode == ThemeMode.dark) {
+    if (state.themeMode == ThemeMode.dark) {
       setThemeMode(ThemeMode.light);
     } else {
       setThemeMode(ThemeMode.dark);
     }
   }
-}
-
-class ThemeBloc extends Bloc<ThemeState, ThemeStateBuilder> {
-  late final PreferencesService _preferencesService;
-
-  ThemeBloc() : super(ThemeState.initial()) {
-    _preferencesService = locator.get();
-
-    events.setThemeMode(
-      _preferencesService.darkMode ? ThemeMode.dark : ThemeMode.light,
-    );
-  }
-
-  late final events = ThemeEvents(this);
 }

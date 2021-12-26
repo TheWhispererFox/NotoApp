@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noto_app/app/locator.dart';
 import 'package:noto_app/app/material_auto_router.gr.dart';
 import 'package:noto_app/app/themes.dart' as themes;
 import 'package:noto_app/domain/notes/notes_bloc.dart';
@@ -20,7 +21,9 @@ class App extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<ThemeBloc>(
-          create: (_) => ThemeBloc(),
+          create: (_) => ThemeBloc(
+            preferencesService: locator.get(),
+          ),
           dispose: (_, bloc) => bloc.dispose(),
         ),
         Provider<NotesBloc>(
