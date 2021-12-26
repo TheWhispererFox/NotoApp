@@ -4,8 +4,8 @@ import 'package:noto_app/data/models/note.dart';
 import 'package:noto_app/domain/create_note/create_note_bloc.dart';
 import 'package:noto_app/ui/constants.dart';
 
-class CreateNoteView extends StatefulWidget {
-  const CreateNoteView({Key? key, required this.note}) : super(key: key);
+class CreateNotePage extends StatefulWidget {
+  const CreateNotePage({Key? key, required this.note}) : super(key: key);
 
   final Note? note;
 
@@ -13,7 +13,7 @@ class CreateNoteView extends StatefulWidget {
   _CreateNoteState createState() => _CreateNoteState();
 }
 
-class _CreateNoteState extends State<CreateNoteView> {
+class _CreateNoteState extends State<CreateNotePage> {
   late final CreateNoteBloc _bloc;
   late TextEditingController _contentController;
   late TextEditingController _titleController;

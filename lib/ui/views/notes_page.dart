@@ -7,14 +7,14 @@ import 'package:noto_app/ui/components/note_card.dart';
 import 'package:noto_app/utils/extensions/stream_extension.dart';
 import 'package:provider/provider.dart';
 
-class NotesView extends StatefulWidget {
-  const NotesView({Key? key}) : super(key: key);
+class NotesPage extends StatefulWidget {
+  const NotesPage({Key? key}) : super(key: key);
 
   @override
-  State<NotesView> createState() => _NotesViewState();
+  State<NotesPage> createState() => _NotesPageState();
 }
 
-class _NotesViewState extends State<NotesView> with TickerProviderStateMixin {
+class _NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
   late final NotesBloc _notesBloc;
 
   @override
