@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:masonry_grid/masonry_grid.dart';
 import 'package:noto_app/app/material_auto_router.gr.dart';
 import 'package:noto_app/domain/notes/notes_bloc.dart';
 import 'package:noto_app/ui/components/note_card.dart';
@@ -88,26 +87,19 @@ class _NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
         children: [
           _notesBloc.getNotes().builderNoLoading(
             onData: (_, notes) {
-              return CustomScrollView(
-                slivers: [
-                  SliverToBoxAdapter(
-                    child: MasonryGrid(
-                      crossAxisSpacing: 4,
-                      mainAxisSpacing: 4,
-                      column: 2,
-                      children: notes
-                          .map(
-                            (it) => NoteCard(
-                              note: it,
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  ),
-                ],
+              return GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                ),
                 physics: const BouncingScrollPhysics(
                   parent: AlwaysScrollableScrollPhysics(),
                 ),
+                itemBuilder: (context, index) {
+                  final it = notes[index];
+                  return NoteCard(
+                    note: it,
+                  );
+                },
               );
             },
           ),

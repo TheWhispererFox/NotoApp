@@ -8,7 +8,6 @@ const _secondaryColor = Color(0xFF03dac5);
 final dark = ThemeData.dark().copyWith(
   scaffoldBackgroundColor: Colors.grey.shade900,
   colorScheme: const ColorScheme.dark(
-    primary: _primaryColor,
     secondary: _secondaryColor,
     secondaryVariant: Color(0xFF3700b3),
   ),
