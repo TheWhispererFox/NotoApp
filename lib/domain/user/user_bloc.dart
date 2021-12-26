@@ -1,18 +1,16 @@
+import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:noto_app/app/locator.dart';
 import 'package:noto_app/base/bloc/bloc.dart';
 import 'package:noto_app/domain/user/user_state.dart';
+import 'package:noto_app/services/auth_service.dart';
 
 class UserBloc extends Bloc<UserState, UserStateBuilder> {
-  UserBloc(User? user) : super(UserState.initial(user));
+  UserBloc() : super(UserState.initial());
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final AuthService _authService = locator.get();
 
-  User? get user {
-    return _auth.currentUser;
-  }
-
-  //Stream<BuiltList<Note>> getNotes() => _noteRepository.stream;
   late final events = UserEvents(this);
 }
 
@@ -21,46 +19,51 @@ class UserEvents {
 
   final UserBloc _bloc;
 
-  Future<void> registerUserWithEmail(String email, String password) async {
-    try {
-      await _bloc._auth
-          .createUserWithEmailAndPassword(email: email, password: password);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        _bloc.updateState((b) => b.error = ErrorCode.weakPassword);
-      } else if (e.code == 'email-already-in-use') {
-        _bloc.updateState((b) => b.error = ErrorCode.emailAlreadyInUse);
-      }
-    }
+  void passwordDontMatch() {
+    _bloc.updateState((b) => b.error = AuthError.passwordDontMatch);
   }
 
-  Future<void> signInWithEmail(String email, String password) async {
-    try {
-      await _bloc._auth
-          .signInWithEmailAndPassword(email: email, password: password);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        _bloc.updateState((b) => b.error = ErrorCode.userNotFound);
-      } else if (e.code == 'wrong-password') {
-        _bloc.updateState((b) => b.error = ErrorCode.wrongPassword);
-      }
-    }
-  }
+  Future<void> registerUserWithEmail(
+    String email,
+    String password,
+  ) async {
+    final result =
+        await _bloc._authService.registerUserWithEmail(email, password);
 
-  Future<void> signInWithGoogle() async {
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
-
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
+    result.fold(
+      (userCredential) {
+        _bloc.updateState((b) => b.userCredential = userCredential);
+      },
+      (authError) {
+        _bloc.updateState((b) => b.error = authError);
+      },
     );
-
-    await _bloc._auth.signInWithCredential(credential);
   }
 
-  Future<void> signOut() async {
-    await _bloc._auth.signOut();
+  Future<void> signInWithEmail(
+    String email,
+    String password,
+  ) async {
+    await _bloc._authService.signInWithEmail(email, password);
   }
+
+  // Future<UserCredential?> signInWithGoogle() async {
+  //   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+  //   if (googleUser != null) {
+  //     final GoogleSignInAuthentication googleAuth =
+  //         await googleUser.authentication;
+
+  //     final credential = GoogleAuthProvider.credential(
+  //       accessToken: googleAuth.accessToken,
+  //       idToken: googleAuth.idToken,
+  //     );
+
+  //     return _auth.signInWithCredential(credential);
+  //   }
+  // }
+
+  // Future<void> signOut() async {
+  //   await _auth.signOut();
+  // }
 }

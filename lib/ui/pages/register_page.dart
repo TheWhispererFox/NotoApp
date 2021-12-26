@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:noto_app/domain/user/user_bloc.dart';
-import 'package:noto_app/domain/user/user_state.dart';
 import 'package:noto_app/ui/constants.dart';
+import 'package:noto_app/utils/extensions/context_extension.dart';
 import 'package:provider/provider.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -28,11 +28,14 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   void didChangeDependencies() {
-    super.didChangeDependencies();
-    _bloc.stateStream.listen((event) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(event.error.name)));
+    _bloc.stateStream
+        .map((event) => event.error)
+        .where((event) => event != null)
+        .listen((event) {
+      context.scaffoldMessenger
+          .showSnackBar(SnackBar(content: Text(event!.toString())));
     });
+    super.didChangeDependencies();
   }
 
   @override
@@ -80,9 +83,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         _passwordController.value.text,
                       );
                     } else {
-                      _bloc.updateState(
-                        (b) => b.error = ErrorCode.passwordDontMatch,
-                      );
+                      _bloc.events.passwordDontMatch();
                     }
                   },
                   child: const Text('Sign up'),

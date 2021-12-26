@@ -1,5 +1,6 @@
 import 'package:built_value/built_value.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:noto_app/services/auth_service.dart';
 
 part 'user_state.g.dart';
 
@@ -8,24 +9,16 @@ abstract class UserState implements Built<UserState, UserStateBuilder> {
 
   UserState._();
 
-  factory UserState.initial(User? user) {
+  factory UserState.initial() {
     return UserState(
       (b) => b
-        ..user = user
-        ..error = ErrorCode.none,
+        ..user = null
+        ..userCredential = null
+        ..error = null,
     );
   }
 
   User? get user;
-
-  ErrorCode get error;
-}
-
-enum ErrorCode {
-  none,
-  weakPassword,
-  emailAlreadyInUse,
-  userNotFound,
-  wrongPassword,
-  passwordDontMatch,
+  UserCredential? get userCredential;
+  AuthError? get error;
 }

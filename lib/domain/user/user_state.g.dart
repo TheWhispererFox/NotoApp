@@ -10,14 +10,14 @@ class _$UserState extends UserState {
   @override
   final User? user;
   @override
-  final ErrorCode error;
+  final UserCredential? userCredential;
+  @override
+  final AuthError? error;
 
   factory _$UserState([void Function(UserStateBuilder)? updates]) =>
       (new UserStateBuilder()..update(updates)).build();
 
-  _$UserState._({this.user, required this.error}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(error, 'UserState', 'error');
-  }
+  _$UserState._({this.user, this.userCredential, this.error}) : super._();
 
   @override
   UserState rebuild(void Function(UserStateBuilder) updates) =>
@@ -29,18 +29,23 @@ class _$UserState extends UserState {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is UserState && user == other.user && error == other.error;
+    return other is UserState &&
+        user == other.user &&
+        userCredential == other.userCredential &&
+        error == other.error;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, user.hashCode), error.hashCode));
+    return $jf($jc(
+        $jc($jc(0, user.hashCode), userCredential.hashCode), error.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('UserState')
           ..add('user', user)
+          ..add('userCredential', userCredential)
           ..add('error', error))
         .toString();
   }
@@ -53,9 +58,14 @@ class UserStateBuilder implements Builder<UserState, UserStateBuilder> {
   User? get user => _$this._user;
   set user(User? user) => _$this._user = user;
 
-  ErrorCode? _error;
-  ErrorCode? get error => _$this._error;
-  set error(ErrorCode? error) => _$this._error = error;
+  UserCredential? _userCredential;
+  UserCredential? get userCredential => _$this._userCredential;
+  set userCredential(UserCredential? userCredential) =>
+      _$this._userCredential = userCredential;
+
+  AuthError? _error;
+  AuthError? get error => _$this._error;
+  set error(AuthError? error) => _$this._error = error;
 
   UserStateBuilder();
 
@@ -63,6 +73,7 @@ class UserStateBuilder implements Builder<UserState, UserStateBuilder> {
     final $v = _$v;
     if ($v != null) {
       _user = $v.user;
+      _userCredential = $v.userCredential;
       _error = $v.error;
       _$v = null;
     }
@@ -84,9 +95,7 @@ class UserStateBuilder implements Builder<UserState, UserStateBuilder> {
   _$UserState build() {
     final _$result = _$v ??
         new _$UserState._(
-            user: user,
-            error: BuiltValueNullFieldError.checkNotNull(
-                error, 'UserState', 'error'));
+            user: user, userCredential: userCredential, error: error);
     replace(_$result);
     return _$result;
   }

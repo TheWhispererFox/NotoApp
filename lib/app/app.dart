@@ -29,7 +29,7 @@ class App extends StatelessWidget {
           lazy: true,
         ),
         Provider<UserBloc>(
-          create: (_) => UserBloc(null),
+          create: (_) => UserBloc(),
           dispose: (_, bloc) => bloc.dispose(),
           lazy: false,
         )
