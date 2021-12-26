@@ -34,11 +34,14 @@ class NoteCard extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    note.title ?? 'Untitled',
-                    style: const TextStyle(
-                      fontSize: 20.0,
-                      fontFamily: 'MontserratAlternates',
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Text(
+                      note.title ?? 'Untitled',
+                      style: const TextStyle(
+                        fontSize: 20.0,
+                        fontFamily: 'MontserratAlternates',
+                      ),
                     ),
                   ),
                   Text(
@@ -63,7 +66,7 @@ class NoteCard extends StatelessWidget {
           ),
           Positioned(
             right: 0,
-            top: 0,
+            top: 3,
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 200),
               child: isSelected
