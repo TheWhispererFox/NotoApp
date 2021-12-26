@@ -37,7 +37,7 @@ class _NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
     return Scaffold(
       floatingActionButton: FloatingActionButton.large(
         onPressed: () {
-          AutoRouter.of(context).push(CreateNoteViewRoute(note: null));
+          AutoRouter.of(context).push(CreateNotePageRoute(note: null));
         },
         elevation: 10,
         child: const Icon(Icons.note_add_outlined),

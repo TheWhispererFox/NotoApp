@@ -18,7 +18,7 @@ class NoteCard extends StatelessWidget {
     final String formattedDate = DateFormat('dd MMM').format(note.createdAt);
     return InkWell(
       onTap: () {
-        AutoRouter.of(context).push(CreateNoteViewRoute(note: note));
+        AutoRouter.of(context).push(CreateNotePageRoute(note: note));
       },
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
