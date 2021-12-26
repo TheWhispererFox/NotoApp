@@ -129,9 +129,7 @@ class _NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
           Rx.combineLatest2<BuiltList<Note>, NotesState, BuiltList<Note>>(
             _notesBloc.getNotes(),
             _notesBloc.stateStream,
-            (notes, _) => (notes.toList()
-                  ..sort((a, b) => b.createdAt.compareTo(a.createdAt)))
-                .toBuiltList(),
+            (notes, _) => notes,
           ).builderNoLoading(
             onData: (_, notes) {
               if (notes.isEmpty) {
@@ -139,8 +137,12 @@ class _NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
                   child: Text("No notes.\nAdd new notes to become better."),
                 );
               } else {
+                final sortedNotes = (notes.toList()
+                      ..sort((a, b) => b.createdAt.compareTo(a.createdAt)))
+                    .toBuiltList();
+
                 return GridView.builder(
-                  itemCount: notes.length,
+                  itemCount: sortedNotes.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                   ),
@@ -148,7 +150,7 @@ class _NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
                     parent: AlwaysScrollableScrollPhysics(),
                   ),
                   itemBuilder: (context, index) {
-                    final it = notes[index];
+                    final it = sortedNotes[index];
                     return NoteCard(
                       note: it,
                       isSelected: _notesBloc.isSelected(it),
