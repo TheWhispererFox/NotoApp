@@ -4,7 +4,7 @@ import 'package:noto_app/base/bloc/bloc.dart';
 import 'package:noto_app/domain/user/user_state.dart';
 
 class UserBloc extends Bloc<UserState, UserStateBuilder> {
-  UserBloc(User user) : super(UserState.initial(user));
+  UserBloc(User? user) : super(UserState.initial(user));
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -23,26 +23,26 @@ class UserEvents {
 
   Future<void> registerUserWithEmail(String email, String password) async {
     try {
-      final UserCredential userCredential = await _bloc._auth
+      await _bloc._auth
           .createUserWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        // Notify user that his password is weak
+        _bloc.updateState((b) => b.error = ErrorCode.weakPassword);
       } else if (e.code == 'email-already-in-use') {
-        // Notify user that this email already registered
+        _bloc.updateState((b) => b.error = ErrorCode.emailAlreadyInUse);
       }
     }
   }
 
-  Future<void> authUserWithEmail(String email, String password) async {
+  Future<void> signInWithEmail(String email, String password) async {
     try {
-      final UserCredential userCredential = await _bloc._auth
+      await _bloc._auth
           .signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        // Notify user that this account isn't Found
+        _bloc.updateState((b) => b.error = ErrorCode.userNotFound);
       } else if (e.code == 'wrong-password') {
-        // Notify user that they wrote wrong password
+        _bloc.updateState((b) => b.error = ErrorCode.wrongPassword);
       }
     }
   }

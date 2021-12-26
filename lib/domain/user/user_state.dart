@@ -8,11 +8,24 @@ abstract class UserState implements Built<UserState, UserStateBuilder> {
 
   UserState._();
 
-  factory UserState.initial(User user) {
+  factory UserState.initial(User? user) {
     return UserState(
-      (b) => b..user = user,
+      (b) => b
+        ..user = user
+        ..error = ErrorCode.none,
     );
   }
 
-  User get user;
+  User? get user;
+
+  ErrorCode get error;
+}
+
+enum ErrorCode {
+  none,
+  weakPassword,
+  emailAlreadyInUse,
+  userNotFound,
+  wrongPassword,
+  passwordDontMatch,
 }

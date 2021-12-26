@@ -3,6 +3,7 @@ import 'package:noto_app/app/material_auto_router.gr.dart';
 import 'package:noto_app/app/themes.dart' as themes;
 import 'package:noto_app/domain/notes/notes_bloc.dart';
 import 'package:noto_app/domain/themes/theme_bloc.dart';
+import 'package:noto_app/domain/user/user_bloc.dart';
 import 'package:noto_app/utils/extensions/stream_extension.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +28,11 @@ class App extends StatelessWidget {
           dispose: (_, bloc) => bloc.dispose(),
           lazy: true,
         ),
+        Provider<UserBloc>(
+          create: (_) => UserBloc(null),
+          dispose: (_, bloc) => bloc.dispose(),
+          lazy: false,
+        )
       ],
       builder: (context, _) {
         return context.read<ThemeBloc>().stateStream.builderNoLoading(
