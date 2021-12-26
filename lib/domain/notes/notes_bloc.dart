@@ -23,6 +23,10 @@ class NotesEvents {
       _bloc._noteRepository.delete(note);
     }
   }
+
+  void unselectAll() {
+    _bloc.updateState((b) => b.selectedNotes = ListBuilder<Note>());
+  }
 }
 
 class NotesBloc extends Bloc<NotesState, NotesStateBuilder> {
@@ -30,6 +34,10 @@ class NotesBloc extends Bloc<NotesState, NotesStateBuilder> {
 
   bool isSelected(Note note) {
     return state.selectedNotes.contains(note);
+  }
+
+  bool get isInSelectionMode {
+    return state.selectedNotes.isNotEmpty;
   }
 
   late final events = NotesEvents(this);

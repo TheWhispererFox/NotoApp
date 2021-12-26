@@ -99,13 +99,13 @@ class _NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
                       ),
                       IconButton(
                         onPressed: () {
-                          AutoRouter.of(context).push(const SettingsRoute());
+                          _notesBloc.events.unselectAll();
                         },
                         splashRadius: 24,
                         icon: const Icon(
-                          Icons.select_all,
+                          Icons.remove_done,
                           size: 24.0,
-                          semanticLabel: 'Select all',
+                          semanticLabel: 'Unselect all',
                         ),
                       )
                     ],
@@ -150,10 +150,14 @@ class _NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
                     return NoteCard(
                       note: it,
                       isSelected: _notesBloc.isSelected(it),
-                      onTap: () {
-                        AutoRouter.of(context)
-                            .push(CreateNotePageRoute(note: it));
-                      },
+                      onTap: _notesBloc.isInSelectionMode
+                          ? () {
+                              _notesBloc.events.select(it);
+                            }
+                          : () {
+                              AutoRouter.of(context)
+                                  .push(CreateNotePageRoute(note: it));
+                            },
                       onLongPress: () {
                         _notesBloc.events.select(it);
                       },
