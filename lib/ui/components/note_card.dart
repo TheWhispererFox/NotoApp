@@ -36,6 +36,7 @@ class NoteCard extends StatelessWidget {
               Text(
                 note.content ?? '',
               ),
+              const Spacer(),
               Row(
                 children: [
                   Text(
