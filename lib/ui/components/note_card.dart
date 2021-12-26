@@ -22,7 +22,7 @@ class NoteCard extends StatelessWidget {
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Container(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.all(12),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
