@@ -129,7 +129,9 @@ class _NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
           Rx.combineLatest2<BuiltList<Note>, NotesState, BuiltList<Note>>(
             _notesBloc.getNotes(),
             _notesBloc.stateStream,
-            (a, _) => a,
+            (notes, _) => (notes.toList()
+                  ..sort((a, b) => b.createdAt.compareTo(a.createdAt)))
+                .toBuiltList(),
           ).builderNoLoading(
             onData: (_, notes) {
               if (notes.isEmpty) {

@@ -22,6 +22,8 @@ class NotesEvents {
     for (final note in _bloc.state.selectedNotes) {
       _bloc._noteRepository.delete(note);
     }
+
+    unselectAll();
   }
 
   void unselectAll() {
