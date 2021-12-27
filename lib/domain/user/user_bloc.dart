@@ -32,7 +32,11 @@ class UserEvents {
 
     result.fold(
       (userCredential) {
-        _bloc.updateState((b) => b.userCredential = userCredential);
+        _bloc.updateState(
+          (b) => b
+            ..userCredential = userCredential
+            ..error = null,
+        );
       },
       (authError) {
         _bloc.updateState((b) => b.error = authError);
