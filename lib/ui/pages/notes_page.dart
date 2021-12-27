@@ -72,7 +72,8 @@ class _NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
                       ),
                       IconButton(
                         onPressed: () {
-                          AutoRouter.of(context).push(const SettingsRoute());
+                          AutoRouter.of(context)
+                              .push(const SettingsPageRoute());
                         },
                         splashRadius: 24,
                         icon: const Icon(
