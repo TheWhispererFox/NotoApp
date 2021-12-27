@@ -13,7 +13,7 @@ void main() {
         onThemeChanged: (_) {},
       ),
       event: (bloc) async => bloc.setThemeMode(ThemeMode.light),
-      expect: (state) => state.themeMode == ThemeMode.dark,
+      expect: (state) => state.themeMode == ThemeMode.light,
       timeout: Timeout.none,
     );
   });

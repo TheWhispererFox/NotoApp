@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
+import 'package:flutter_gen/gen_l10n/app_langs.dart';
 
 extension ContextExtension on BuildContext {
   ThemeData get theme => Theme.of(this);
@@ -31,4 +33,5 @@ extension ContextExtension on BuildContext {
   ScaffoldMessengerState get scaffoldMessenger => ScaffoldMessenger.of(this);
   NavigatorState get navigator => Navigator.of(this);
   FocusScopeNode get focusScope => FocusScope.of(this);
+  AppLocalizations? get lang => AppLocalizations.of(this);
 }

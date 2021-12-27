@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:noto_app/domain/themes/theme_bloc.dart';
+import 'package:noto_app/utils/extensions/context_extension.dart';
 import 'package:noto_app/utils/extensions/stream_extension.dart';
 import 'package:provider/provider.dart';
 
@@ -28,7 +29,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Settings"),
+        title: Text(context.lang!.settings),
       ),
       body: ListView(
         children: [
@@ -36,7 +37,7 @@ class _SettingsPageState extends State<SettingsPage> {
             onData: (context, state) {
               return SwitchListTile(
                 secondary: const Icon(Icons.dark_mode),
-                title: const Text("Dark mode"),
+                title: Text(context.lang!.darkMode),
                 value: state.themeMode == ThemeMode.dark,
                 onChanged: (_) {
                   _themeBloc.switchTheme();

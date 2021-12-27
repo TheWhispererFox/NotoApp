@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
+import 'package:flutter_gen/gen_l10n/app_langs.dart';
+import 'package:flutterfire_ui/i10n.dart';
 import 'package:noto_app/app/auth_guard.dart';
 import 'package:noto_app/app/locator.dart';
 import 'package:noto_app/app/material_auto_router.gr.dart';
@@ -54,6 +57,16 @@ class App extends StatelessWidget {
               theme: themes.light,
               themeMode: state.themeMode,
               title: appName,
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: const [
+                Locale('en', ''),
+                Locale('ru', 'RU'),
+              ],
             );
           },
         );

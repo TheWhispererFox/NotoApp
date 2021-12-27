@@ -6,6 +6,7 @@ import 'package:noto_app/data/models/note.dart';
 import 'package:noto_app/domain/notes/notes_bloc.dart';
 import 'package:noto_app/domain/notes/notes_state.dart';
 import 'package:noto_app/ui/components/note_card.dart';
+import 'package:noto_app/utils/extensions/context_extension.dart';
 import 'package:noto_app/utils/extensions/stream_extension.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
@@ -119,9 +120,9 @@ class _NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
         ),
         bottom: TabBar(
           controller: _tabController,
-          tabs: const [
-            Tab(text: 'All'),
-            Tab(text: 'Folders'),
+          tabs: [
+            Tab(text: context.lang!.all),
+            Tab(text: context.lang!.folders),
           ],
         ),
       ),
