@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:noto_app/base/bloc/bloc_state_test.dart';
+import 'package:noto_app/base/bloc/bloc_test.dart';
 import 'package:noto_app/domain/themes/theme_bloc.dart';
 import 'package:noto_app/domain/themes/theme_state.dart';
 import 'package:noto_app/main.dart';
@@ -16,15 +16,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   group('CounterBloc tests', () {
-    blocStateTest<ThemeBloc, ThemeState, ThemeStateBuilder>(
+    blocTest<ThemeBloc, ThemeState, ThemeStateBuilder>(
       'ThemeBloc theme switch test',
       build: () async => ThemeBloc(
-        preferencesService: PreferencesService(
-          await SharedPreferences.getInstance(),
-        ),
+        initTheme: ThemeMode.dark,
+        onThemeChanged: (_) {},
       ),
       event: (bloc) async => bloc.setThemeMode(ThemeMode.light),
-      expect: (state) => state.themeMode == ThemeMode.light,
+      expect: (state) => state.themeMode == ThemeMode.dark,
+      timeout: Timeout.none,
     );
   });
 
