@@ -1,9 +1,12 @@
 import 'dart:async';
 
 import 'package:built_value/built_value.dart';
+import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
 import 'package:noto_app/base/bloc/bloc.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:test/test.dart' as tester;
+import 'package:test/test.dart';
 
 @isTest
 void blocTest<
@@ -12,7 +15,7 @@ void blocTest<
         TStateBuilder extends Builder<TState, TStateBuilder>>(
   String message, {
   required Future<TBloc> Function() build,
-  required List<Future<bool> Function(TState state)> expect,
+  required List<bool Function(TState state)> statePredicates,
   Future<void> Function(TBloc bloc)? event,
   Duration? wait,
   int skip = 1,
@@ -25,37 +28,18 @@ void blocTest<
 
         if (wait != null) await Future<void>.delayed(wait);
 
-        // late StreamSubscription<TState> subscription;
+        final stateStream = bloc.stateStream.skip(skip);
+
+        stateStream
+            .zipWith<bool Function(TState state), Tuple2<TState, Matcher>>(
+          Stream.fromIterable(statePredicates),
+          (s, p) => Tuple2(s, tester.predicate(p)),
+        )
+            .listen((t) {
+          tester.expect(t.value1, t.value2);
+        });
 
         await event?.call(bloc);
-
-        int stateCounter = 0;
-
-        await for (final state in bloc.stateStream.skip(skip)) {
-          if (stateCounter < expect.length) {
-            tester.expect(
-              await expect[stateCounter](state),
-              tester.isTrue,
-              reason:
-                  "$state doesn't match to \"expect\" predicate №$stateCounter",
-            );
-
-            stateCounter++;
-          }
-        }
-
-        // subscription = bloc.stateStream.skip(skip).listen((state) async {
-        //   if (stateCounter < expect.length) {
-        //     tester.expect(
-        //       expect[stateCounter](state),
-        //       tester.isTrue,
-        //       reason: "$state doesn't match to \"expect\" predicate",
-        //     );
-
-        //     stateCounter++;
-        //   }
-        //   await subscription.cancel();
-        // });
       },
       timeout: timeout,
     );

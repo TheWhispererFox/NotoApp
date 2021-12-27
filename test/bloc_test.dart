@@ -14,9 +14,9 @@ void main() {
       )..debug = true,
       event: (bloc) async => bloc.setThemeMode(ThemeMode.light),
       skip: 0,
-      expect: [
-        (state) async => state.themeMode == ThemeMode.dark,
-        (state) async => state.themeMode == ThemeMode.light,
+      statePredicates: [
+        (state) => state.themeMode == ThemeMode.dark,
+        (state) => state.themeMode == ThemeMode.light,
       ],
       timeout: Timeout.none,
     );
