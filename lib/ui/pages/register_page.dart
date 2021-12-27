@@ -20,13 +20,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   void didChangeDependencies() {
-    _bloc.stateStream
-        .map((event) => event.error)
-        .where((event) => event != null)
-        .listen((event) {
-      context.scaffoldMessenger
-          .showSnackBar(SnackBar(content: Text(event!.toString())));
-    });
     super.didChangeDependencies();
   }
 
@@ -45,57 +38,68 @@ class _RegisterPageState extends State<RegisterPage> {
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
     _repeatPasswordController = TextEditingController();
+
+    _bloc.stateStream
+        .map((event) => event.error)
+        .where((event) => event != null)
+        .listen((event) {
+      context.scaffoldMessenger
+          .showSnackBar(SnackBar(content: Text(event!.toString())));
+    });
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: defaultPadding,
-        child: Center(
-          child: Form(
-            child: Column(
-              children: <Widget>[
-                TextFormField(
-                  decoration: const InputDecoration(
-                    hintText: 'Email',
+      body: SafeArea(
+        child: Padding(
+          padding: defaultPadding,
+          child: Center(
+            child: Form(
+              child: Column(
+                children: <Widget>[
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      hintText: 'Email',
+                    ),
+                    controller: _emailController,
                   ),
-                  controller: _emailController,
-                ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    hintText: 'Password',
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      hintText: 'Password',
+                    ),
+                    controller: _passwordController,
                   ),
-                  controller: _passwordController,
-                ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    hintText: 'Repeat Password',
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      hintText: 'Repeat Password',
+                    ),
+                    controller: _repeatPasswordController,
                   ),
-                  controller: _repeatPasswordController,
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (_passwordController.value ==
-                        _repeatPasswordController.value) {
-                      await _bloc.registerUserWithEmail(
-                        _emailController.value.text,
-                        _passwordController.value.text,
-                      );
-                    } else {
-                      _bloc.passwordDontMatch();
-                    }
-                  },
-                  child: const Text('Sign up'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    AutoRouter.of(context).pop();
-                  },
-                  child: const Text('Already have an account?'),
-                )
-              ],
+                  ElevatedButton(
+                    onPressed: () async {
+                      if (_passwordController.value ==
+                          _repeatPasswordController.value) {
+                        await _bloc.registerUserWithEmail(
+                          _emailController.value.text,
+                          _passwordController.value.text,
+                        );
+                      } else {
+                        _bloc.passwordDontMatch();
+                      }
+                    },
+                    child: const Text('Sign up'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      AutoRouter.of(context).pop();
+                    },
+                    child: const Text('Already have an account?'),
+                  )
+                ],
+              ),
             ),
           ),
         ),

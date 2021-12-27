@@ -20,19 +20,6 @@ class _AuthPageState extends State<AuthPage> {
 
   @override
   void didChangeDependencies() {
-    _bloc.stateStream
-        .map((event) => event.error)
-        .where((event) => event != null)
-        .listen((event) {
-      context.scaffoldMessenger
-          .showSnackBar(SnackBar(content: Text(event!.toString())));
-    });
-    _bloc.stateStream
-        .map((event) => event.userCredential)
-        .where((event) => event != null)
-        .listen((event) {
-      AutoRouter.of(context).push(const NotesPageRoute());
-    });
     super.didChangeDependencies();
   }
 
@@ -49,47 +36,64 @@ class _AuthPageState extends State<AuthPage> {
     _bloc = context.read();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
+
+    _bloc.stateStream
+        .map((event) => event.error)
+        .where((event) => event != null)
+        .listen((event) {
+      context.scaffoldMessenger
+          .showSnackBar(SnackBar(content: Text(event!.toString())));
+    });
+    _bloc.stateStream
+        .map((event) => event.userCredential)
+        .where((event) => event != null)
+        .listen((event) {
+      AutoRouter.of(context).push(const NotesPageRoute());
+    });
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: defaultPadding,
-        child: Center(
-          child: Form(
-            child: Column(
-              children: <Widget>[
-                TextFormField(
-                  decoration: const InputDecoration(
-                    hintText: 'Email',
+      body: SafeArea(
+        child: Padding(
+          padding: defaultPadding,
+          child: Center(
+            child: Form(
+              child: Column(
+                children: <Widget>[
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      hintText: 'Email',
+                    ),
+                    controller: _emailController,
                   ),
-                  controller: _emailController,
-                ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    hintText: 'Password',
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      hintText: 'Password',
+                    ),
+                    controller: _passwordController,
                   ),
-                  controller: _passwordController,
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    _bloc.signInWithEmail(
-                      _emailController.value.text,
-                      _passwordController.value.text,
-                    );
-                  },
-                  child: const Text('Sign In'),
-                ),
-                const Text('-----OR------'),
-                ElevatedButton(
-                  onPressed: () {
-                    AutoRouter.of(context).push(const RegisterPageRoute());
-                  },
-                  child: const Text("Create Account"),
-                ),
-              ],
+                  ElevatedButton(
+                    onPressed: () async {
+                      _bloc.signInWithEmail(
+                        _emailController.value.text,
+                        _passwordController.value.text,
+                      );
+                    },
+                    child: const Text('Sign In'),
+                  ),
+                  const Text('-----OR------'),
+                  ElevatedButton(
+                    onPressed: () {
+                      AutoRouter.of(context).push(const RegisterPageRoute());
+                    },
+                    child: const Text("Create Account"),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
