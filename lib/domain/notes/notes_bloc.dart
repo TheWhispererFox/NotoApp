@@ -8,6 +8,8 @@ import 'package:noto_app/domain/notes/notes_state.dart';
 class NotesBloc extends Bloc<NotesState, NotesStateBuilder> {
   NotesBloc() : super(NotesState.initial());
 
+  final FirestoreNoteRepository _noteRepository = locator.get();
+
   bool isSelected(Note note) {
     return state.selectedNotes.contains(note);
   }
@@ -15,8 +17,6 @@ class NotesBloc extends Bloc<NotesState, NotesStateBuilder> {
   bool get isInSelectionMode {
     return state.selectedNotes.isNotEmpty;
   }
-
-  final FirestoreNoteRepository _noteRepository = locator.get();
 
   Stream<BuiltList<Note>> getNotes() => _noteRepository.stream;
 

@@ -8,17 +8,23 @@ part of 'entity.dart';
 
 abstract class EntityBuilder {
   void replace(Entity other);
+
   void update(void Function(EntityBuilder) updates);
+
   String? get id;
+
   set id(String? id);
 
   DateTime? get createdAt;
+
   set createdAt(DateTime? createdAt);
 
   DateTime? get updatedAt;
+
   set updatedAt(DateTime? updatedAt);
 
   DateTime? get deletedAt;
+
   set deletedAt(DateTime? deletedAt);
 }
 

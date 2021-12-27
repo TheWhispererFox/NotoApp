@@ -18,9 +18,10 @@ class App extends StatelessWidget {
 
   static String appName = "Noto App";
 
-  final _key = GlobalKey<NavigatorState>();
   late final _appRouter = AppRouter(navigatorKey: _key, authGuard: AuthGuard());
+  final _key = GlobalKey<NavigatorState>();
   late final PreferencesService _preferencesService = locator.get();
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

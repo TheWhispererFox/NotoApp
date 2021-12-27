@@ -28,6 +28,17 @@ abstract class FirestoreRepository<T extends Entity> extends Repository<T> {
   }
 
   @override
+  Future<void> addOrUpdate(T model) async {
+    final doc = await collectionRef.where("id", isEqualTo: model.id).get();
+
+    if (doc.size == 0) {
+      add(model);
+    } else {
+      update(model);
+    }
+  }
+
+  @override
   Future<BuiltList<T>> get data => stream.last;
 
   @override
@@ -50,18 +61,17 @@ abstract class FirestoreRepository<T extends Entity> extends Repository<T> {
   }
 
   @override
-  Future<void> addOrUpdate(T model) async {
-    final doc = await collectionRef.where("id", isEqualTo: model.id).get();
-
-    if (doc.size == 0) {
-      add(model);
-    } else {
-      update(model);
-    }
-  }
+  void dispose() {}
 
   @override
-  void dispose() {}
+  Future<T?> get(String id) =>
+      collectionRef.doc(id).get().then((value) => deserialize<T>(value.data()));
+
+  @override
+  Stream<T?> getStream(String id) => collectionRef
+      .doc(id)
+      .snapshots()
+      .map((event) => deserialize<T>(event.data()));
 
   @override
   Stream<BuiltList<T>> get stream => _deserialize(
@@ -79,16 +89,6 @@ abstract class FirestoreRepository<T extends Entity> extends Repository<T> {
           SetOptions(merge: true),
         );
   }
-
-  @override
-  Future<T?> get(String id) =>
-      collectionRef.doc(id).get().then((value) => deserialize<T>(value.data()));
-
-  @override
-  Stream<T?> getStream(String id) => collectionRef
-      .doc(id)
-      .snapshots()
-      .map((event) => deserialize<T>(event.data()));
 
   FirestorePath get path;
 

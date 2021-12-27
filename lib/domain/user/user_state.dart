@@ -19,6 +19,8 @@ abstract class UserState implements Built<UserState, UserStateBuilder> {
   }
 
   User? get user;
+
   UserCredential? get userCredential;
+
   AuthError? get error;
 }

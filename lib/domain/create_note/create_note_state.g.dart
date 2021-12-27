@@ -7,9 +7,6 @@ part of 'create_note_state.dart';
 // **************************************************************************
 
 class _$CreateNoteState extends CreateNoteState {
-  @override
-  final Note note;
-
   factory _$CreateNoteState([void Function(CreateNoteStateBuilder)? updates]) =>
       (new CreateNoteStateBuilder()..update(updates)).build();
 
@@ -18,12 +15,7 @@ class _$CreateNoteState extends CreateNoteState {
   }
 
   @override
-  CreateNoteState rebuild(void Function(CreateNoteStateBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  CreateNoteStateBuilder toBuilder() =>
-      new CreateNoteStateBuilder()..replace(this);
+  final Note note;
 
   @override
   bool operator ==(Object other) {
@@ -37,6 +29,14 @@ class _$CreateNoteState extends CreateNoteState {
   }
 
   @override
+  CreateNoteState rebuild(void Function(CreateNoteStateBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  CreateNoteStateBuilder toBuilder() =>
+      new CreateNoteStateBuilder()..replace(this);
+
+  @override
   String toString() {
     return (newBuiltValueToStringHelper('CreateNoteState')..add('note', note))
         .toString();
@@ -45,22 +45,10 @@ class _$CreateNoteState extends CreateNoteState {
 
 class CreateNoteStateBuilder
     implements Builder<CreateNoteState, CreateNoteStateBuilder> {
-  _$CreateNoteState? _$v;
-
-  NoteBuilder? _note;
-  NoteBuilder get note => _$this._note ??= new NoteBuilder();
-  set note(NoteBuilder? note) => _$this._note = note;
-
   CreateNoteStateBuilder();
 
-  CreateNoteStateBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _note = $v.note.toBuilder();
-      _$v = null;
-    }
-    return this;
-  }
+  _$CreateNoteState? _$v;
+  NoteBuilder? _note;
 
   @override
   void replace(CreateNoteState other) {
@@ -71,6 +59,19 @@ class CreateNoteStateBuilder
   @override
   void update(void Function(CreateNoteStateBuilder)? updates) {
     if (updates != null) updates(this);
+  }
+
+  NoteBuilder get note => _$this._note ??= new NoteBuilder();
+
+  set note(NoteBuilder? note) => _$this._note = note;
+
+  CreateNoteStateBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _note = $v.note.toBuilder();
+      _$v = null;
+    }
+    return this;
   }
 
   @override

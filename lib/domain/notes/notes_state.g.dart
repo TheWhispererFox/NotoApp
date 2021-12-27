@@ -7,9 +7,6 @@ part of 'notes_state.dart';
 // **************************************************************************
 
 class _$NotesState extends NotesState {
-  @override
-  final BuiltList<Note> selectedNotes;
-
   factory _$NotesState([void Function(NotesStateBuilder)? updates]) =>
       (new NotesStateBuilder()..update(updates)).build();
 
@@ -19,11 +16,7 @@ class _$NotesState extends NotesState {
   }
 
   @override
-  NotesState rebuild(void Function(NotesStateBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  NotesStateBuilder toBuilder() => new NotesStateBuilder()..replace(this);
+  final BuiltList<Note> selectedNotes;
 
   @override
   bool operator ==(Object other) {
@@ -37,6 +30,13 @@ class _$NotesState extends NotesState {
   }
 
   @override
+  NotesState rebuild(void Function(NotesStateBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  NotesStateBuilder toBuilder() => new NotesStateBuilder()..replace(this);
+
+  @override
   String toString() {
     return (newBuiltValueToStringHelper('NotesState')
           ..add('selectedNotes', selectedNotes))
@@ -45,24 +45,10 @@ class _$NotesState extends NotesState {
 }
 
 class NotesStateBuilder implements Builder<NotesState, NotesStateBuilder> {
-  _$NotesState? _$v;
-
-  ListBuilder<Note>? _selectedNotes;
-  ListBuilder<Note> get selectedNotes =>
-      _$this._selectedNotes ??= new ListBuilder<Note>();
-  set selectedNotes(ListBuilder<Note>? selectedNotes) =>
-      _$this._selectedNotes = selectedNotes;
-
   NotesStateBuilder();
 
-  NotesStateBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _selectedNotes = $v.selectedNotes.toBuilder();
-      _$v = null;
-    }
-    return this;
-  }
+  _$NotesState? _$v;
+  ListBuilder<Note>? _selectedNotes;
 
   @override
   void replace(NotesState other) {
@@ -73,6 +59,21 @@ class NotesStateBuilder implements Builder<NotesState, NotesStateBuilder> {
   @override
   void update(void Function(NotesStateBuilder)? updates) {
     if (updates != null) updates(this);
+  }
+
+  ListBuilder<Note> get selectedNotes =>
+      _$this._selectedNotes ??= new ListBuilder<Note>();
+
+  set selectedNotes(ListBuilder<Note>? selectedNotes) =>
+      _$this._selectedNotes = selectedNotes;
+
+  NotesStateBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _selectedNotes = $v.selectedNotes.toBuilder();
+      _$v = null;
+    }
+    return this;
   }
 
   @override

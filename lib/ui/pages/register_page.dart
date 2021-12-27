@@ -19,15 +19,6 @@ class _RegisterPageState extends State<RegisterPage> {
   late TextEditingController _repeatPasswordController;
 
   @override
-  void dispose() {
-    _bloc.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    _repeatPasswordController.dispose();
-    super.dispose();
-  }
-
-  @override
   void didChangeDependencies() {
     _bloc.stateStream
         .map((event) => event.error)
@@ -37,6 +28,15 @@ class _RegisterPageState extends State<RegisterPage> {
           .showSnackBar(SnackBar(content: Text(event!.toString())));
     });
     super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    _bloc.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _repeatPasswordController.dispose();
+    super.dispose();
   }
 
   @override

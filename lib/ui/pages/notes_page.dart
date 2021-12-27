@@ -20,12 +20,7 @@ class NotesPage extends StatefulWidget {
 
 class _NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
   late final NotesBloc _notesBloc;
-
-  @override
-  void initState() {
-    super.initState();
-    _notesBloc = context.read();
-  }
+  late final _tabController = TabController(length: 2, vsync: this);
 
   @override
   void dispose() {
@@ -34,7 +29,11 @@ class _NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  late final _tabController = TabController(length: 2, vsync: this);
+  @override
+  void initState() {
+    super.initState();
+    _notesBloc = context.read();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -7,11 +7,6 @@ part of 'theme_state.dart';
 // **************************************************************************
 
 class _$ThemeState extends ThemeState {
-  @override
-  final ThemeMode themeMode;
-  @override
-  final Brightness brightness;
-
   factory _$ThemeState([void Function(ThemeStateBuilder)? updates]) =>
       (new ThemeStateBuilder()..update(updates)).build();
 
@@ -23,11 +18,10 @@ class _$ThemeState extends ThemeState {
   }
 
   @override
-  ThemeState rebuild(void Function(ThemeStateBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+  final Brightness brightness;
 
   @override
-  ThemeStateBuilder toBuilder() => new ThemeStateBuilder()..replace(this);
+  final ThemeMode themeMode;
 
   @override
   bool operator ==(Object other) {
@@ -43,6 +37,13 @@ class _$ThemeState extends ThemeState {
   }
 
   @override
+  ThemeState rebuild(void Function(ThemeStateBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  ThemeStateBuilder toBuilder() => new ThemeStateBuilder()..replace(this);
+
+  @override
   String toString() {
     return (newBuiltValueToStringHelper('ThemeState')
           ..add('themeMode', themeMode)
@@ -52,27 +53,11 @@ class _$ThemeState extends ThemeState {
 }
 
 class ThemeStateBuilder implements Builder<ThemeState, ThemeStateBuilder> {
-  _$ThemeState? _$v;
-
-  ThemeMode? _themeMode;
-  ThemeMode? get themeMode => _$this._themeMode;
-  set themeMode(ThemeMode? themeMode) => _$this._themeMode = themeMode;
-
-  Brightness? _brightness;
-  Brightness? get brightness => _$this._brightness;
-  set brightness(Brightness? brightness) => _$this._brightness = brightness;
-
   ThemeStateBuilder();
 
-  ThemeStateBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _themeMode = $v.themeMode;
-      _brightness = $v.brightness;
-      _$v = null;
-    }
-    return this;
-  }
+  _$ThemeState? _$v;
+  Brightness? _brightness;
+  ThemeMode? _themeMode;
 
   @override
   void replace(ThemeState other) {
@@ -83,6 +68,24 @@ class ThemeStateBuilder implements Builder<ThemeState, ThemeStateBuilder> {
   @override
   void update(void Function(ThemeStateBuilder)? updates) {
     if (updates != null) updates(this);
+  }
+
+  ThemeMode? get themeMode => _$this._themeMode;
+
+  set themeMode(ThemeMode? themeMode) => _$this._themeMode = themeMode;
+
+  Brightness? get brightness => _$this._brightness;
+
+  set brightness(Brightness? brightness) => _$this._brightness = brightness;
+
+  ThemeStateBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _themeMode = $v.themeMode;
+      _brightness = $v.brightness;
+      _$v = null;
+    }
+    return this;
   }
 
   @override

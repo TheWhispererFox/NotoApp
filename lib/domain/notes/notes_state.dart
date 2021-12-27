@@ -9,11 +9,11 @@ abstract class NotesState implements Built<NotesState, NotesStateBuilder> {
 
   NotesState._();
 
-  BuiltList<Note> get selectedNotes;
-
   factory NotesState.initial() {
     return NotesState(
       (b) => b..selectedNotes = BuiltList<Note>().toBuilder(),
     );
   }
+
+  BuiltList<Note> get selectedNotes;
 }

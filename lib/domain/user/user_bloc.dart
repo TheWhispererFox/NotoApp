@@ -49,22 +49,22 @@ class UserBloc extends Bloc<UserState, UserStateBuilder> {
   }
 }
 
-  // Future<UserCredential?> signInWithGoogle() async {
-  //   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+// Future<UserCredential?> signInWithGoogle() async {
+//   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-  //   if (googleUser != null) {
-  //     final GoogleSignInAuthentication googleAuth =
-  //         await googleUser.authentication;
+//   if (googleUser != null) {
+//     final GoogleSignInAuthentication googleAuth =
+//         await googleUser.authentication;
 
-  //     final credential = GoogleAuthProvider.credential(
-  //       accessToken: googleAuth.accessToken,
-  //       idToken: googleAuth.idToken,
-  //     );
+//     final credential = GoogleAuthProvider.credential(
+//       accessToken: googleAuth.accessToken,
+//       idToken: googleAuth.idToken,
+//     );
 
-  //     return _auth.signInWithCredential(credential);
-  //   }
-  // }
+//     return _auth.signInWithCredential(credential);
+//   }
+// }
 
-  // Future<void> signOut() async {
-  //   await _auth.signOut();
-  // }
+// Future<void> signOut() async {
+//   await _auth.signOut();
+// }

@@ -5,6 +5,7 @@ import 'package:noto_app/services/auth_service.dart';
 
 class AuthGuard extends AutoRouteGuard {
   final AuthService _auth = locator.get();
+
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
     if (_auth.isUserAuthentificated()) {

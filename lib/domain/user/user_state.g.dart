@@ -7,24 +7,19 @@ part of 'user_state.dart';
 // **************************************************************************
 
 class _$UserState extends UserState {
-  @override
-  final User? user;
-  @override
-  final UserCredential? userCredential;
-  @override
-  final AuthError? error;
-
   factory _$UserState([void Function(UserStateBuilder)? updates]) =>
       (new UserStateBuilder()..update(updates)).build();
 
   _$UserState._({this.user, this.userCredential, this.error}) : super._();
 
   @override
-  UserState rebuild(void Function(UserStateBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+  final AuthError? error;
 
   @override
-  UserStateBuilder toBuilder() => new UserStateBuilder()..replace(this);
+  final User? user;
+
+  @override
+  final UserCredential? userCredential;
 
   @override
   bool operator ==(Object other) {
@@ -42,6 +37,13 @@ class _$UserState extends UserState {
   }
 
   @override
+  UserState rebuild(void Function(UserStateBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  UserStateBuilder toBuilder() => new UserStateBuilder()..replace(this);
+
+  @override
   String toString() {
     return (newBuiltValueToStringHelper('UserState')
           ..add('user', user)
@@ -52,33 +54,12 @@ class _$UserState extends UserState {
 }
 
 class UserStateBuilder implements Builder<UserState, UserStateBuilder> {
-  _$UserState? _$v;
-
-  User? _user;
-  User? get user => _$this._user;
-  set user(User? user) => _$this._user = user;
-
-  UserCredential? _userCredential;
-  UserCredential? get userCredential => _$this._userCredential;
-  set userCredential(UserCredential? userCredential) =>
-      _$this._userCredential = userCredential;
-
-  AuthError? _error;
-  AuthError? get error => _$this._error;
-  set error(AuthError? error) => _$this._error = error;
-
   UserStateBuilder();
 
-  UserStateBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _user = $v.user;
-      _userCredential = $v.userCredential;
-      _error = $v.error;
-      _$v = null;
-    }
-    return this;
-  }
+  _$UserState? _$v;
+  AuthError? _error;
+  User? _user;
+  UserCredential? _userCredential;
 
   @override
   void replace(UserState other) {
@@ -89,6 +70,30 @@ class UserStateBuilder implements Builder<UserState, UserStateBuilder> {
   @override
   void update(void Function(UserStateBuilder)? updates) {
     if (updates != null) updates(this);
+  }
+
+  User? get user => _$this._user;
+
+  set user(User? user) => _$this._user = user;
+
+  UserCredential? get userCredential => _$this._userCredential;
+
+  set userCredential(UserCredential? userCredential) =>
+      _$this._userCredential = userCredential;
+
+  AuthError? get error => _$this._error;
+
+  set error(AuthError? error) => _$this._error = error;
+
+  UserStateBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _user = $v.user;
+      _userCredential = $v.userCredential;
+      _error = $v.error;
+      _$v = null;
+    }
+    return this;
   }
 
   @override

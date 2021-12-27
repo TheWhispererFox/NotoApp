@@ -12,11 +12,11 @@ class NoteCard extends StatelessWidget {
     required this.onSelectionChanged,
   }) : super(key: key);
 
-  final Note note;
-  final VoidCallback? onTap;
-  final VoidCallback? onLongPress;
-  final bool isSelected;
   final void Function(bool?) onSelectionChanged;
+  final bool isSelected;
+  final Note note;
+  final VoidCallback? onLongPress;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {

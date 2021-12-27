@@ -19,22 +19,6 @@ class _AuthPageState extends State<AuthPage> {
   late TextEditingController _passwordController;
 
   @override
-  void dispose() {
-    _bloc.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    _bloc = context.read();
-    _emailController = TextEditingController();
-    _passwordController = TextEditingController();
-    super.initState();
-  }
-
-  @override
   void didChangeDependencies() {
     _bloc.stateStream
         .map((event) => event.error)
@@ -50,6 +34,22 @@ class _AuthPageState extends State<AuthPage> {
       AutoRouter.of(context).push(const NotesPageRoute());
     });
     super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    _bloc.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    _bloc = context.read();
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
+    super.initState();
   }
 
   @override

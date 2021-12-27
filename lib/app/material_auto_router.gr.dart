@@ -105,7 +105,6 @@ class CreateNotePageRouteArgs {
   const CreateNotePageRouteArgs({this.key, required this.note});
 
   final _i7.Key? key;
-
   final _i9.Note? note;
 
   @override
