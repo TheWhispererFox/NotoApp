@@ -45,7 +45,16 @@ class UserEvents {
     String email,
     String password,
   ) async {
-    await _bloc._authService.signInWithEmail(email, password);
+    final result = await _bloc._authService.signInWithEmail(email, password);
+    result.fold((userCredential) {
+      _bloc.updateState(
+        (b) => b
+          ..userCredential = userCredential
+          ..error = null,
+      );
+    }, (authError) {
+      _bloc.updateState((b) => b.error = authError);
+    });
   }
 
   // Future<UserCredential?> signInWithGoogle() async {

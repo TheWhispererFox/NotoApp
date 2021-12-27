@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:noto_app/domain/user/user_bloc.dart';
 import 'package:noto_app/ui/constants.dart';
@@ -88,6 +89,12 @@ class _RegisterPageState extends State<RegisterPage> {
                   },
                   child: const Text('Sign up'),
                 ),
+                ElevatedButton(
+                  onPressed: () {
+                    AutoRouter.of(context).pop();
+                  },
+                  child: const Text('Already have an account?'),
+                )
               ],
             ),
           ),

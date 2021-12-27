@@ -8,62 +8,85 @@
 // AutoRouteGenerator
 // **************************************************************************
 
-import 'package:auto_route/auto_route.dart' as _i5;
-import 'package:flutter/material.dart' as _i6;
+import 'package:auto_route/auto_route.dart' as _i6;
+import 'package:flutter/material.dart' as _i7;
 
-import '../data/models/note.dart' as _i7;
-import '../ui/pages/create_note_page.dart' as _i2;
-import '../ui/pages/notes_page.dart' as _i1;
-import '../ui/pages/register_page.dart' as _i4;
-import '../ui/pages/settings_page.dart' as _i3;
+import '../data/models/note.dart' as _i8;
+import '../ui/pages/auth_page.dart' as _i1;
+import '../ui/pages/create_note_page.dart' as _i4;
+import '../ui/pages/notes_page.dart' as _i3;
+import '../ui/pages/register_page.dart' as _i2;
+import '../ui/pages/settings_page.dart' as _i5;
 
-class AppRouter extends _i5.RootStackRouter {
-  AppRouter([_i6.GlobalKey<_i6.NavigatorState>? navigatorKey])
+class AppRouter extends _i6.RootStackRouter {
+  AppRouter([_i7.GlobalKey<_i7.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i5.PageFactory> pagesMap = {
+  final Map<String, _i6.PageFactory> pagesMap = {
+    AuthPageRoute.name: (routeData) {
+      return _i6.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i1.AuthPage());
+    },
+    RegisterPageRoute.name: (routeData) {
+      return _i6.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i2.RegisterPage());
+    },
     NotesPageRoute.name: (routeData) {
-      return _i5.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i1.NotesPage());
+      return _i6.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i3.NotesPage());
     },
     CreateNotePageRoute.name: (routeData) {
       final args = routeData.argsAs<CreateNotePageRouteArgs>();
-      return _i5.MaterialPageX<dynamic>(
+      return _i6.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i2.CreateNotePage(key: args.key, note: args.note));
+          child: _i4.CreateNotePage(key: args.key, note: args.note));
     },
     SettingsPageRoute.name: (routeData) {
-      return _i5.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i3.SettingsPage());
-    },
-    RegisterPageRoute.name: (routeData) {
-      return _i5.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i4.RegisterPage());
+      return _i6.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i5.SettingsPage());
     }
   };
 
   @override
-  List<_i5.RouteConfig> get routes => [
-        _i5.RouteConfig(NotesPageRoute.name, path: '/notes-page'),
-        _i5.RouteConfig(CreateNotePageRoute.name, path: '/create-note-page'),
-        _i5.RouteConfig(SettingsPageRoute.name, path: '/settings-page'),
-        _i5.RouteConfig(RegisterPageRoute.name, path: '/')
+  List<_i6.RouteConfig> get routes => [
+        _i6.RouteConfig(AuthPageRoute.name, path: '/'),
+        _i6.RouteConfig(RegisterPageRoute.name, path: '/register-page'),
+        _i6.RouteConfig(NotesPageRoute.name, path: '/notes-page'),
+        _i6.RouteConfig(CreateNotePageRoute.name, path: '/create-note-page'),
+        _i6.RouteConfig(SettingsPageRoute.name, path: '/settings-page')
       ];
 }
 
 /// generated route for
-/// [_i1.NotesPage]
-class NotesPageRoute extends _i5.PageRouteInfo<void> {
+/// [_i1.AuthPage]
+class AuthPageRoute extends _i6.PageRouteInfo<void> {
+  const AuthPageRoute() : super(AuthPageRoute.name, path: '/');
+
+  static const String name = 'AuthPageRoute';
+}
+
+/// generated route for
+/// [_i2.RegisterPage]
+class RegisterPageRoute extends _i6.PageRouteInfo<void> {
+  const RegisterPageRoute()
+      : super(RegisterPageRoute.name, path: '/register-page');
+
+  static const String name = 'RegisterPageRoute';
+}
+
+/// generated route for
+/// [_i3.NotesPage]
+class NotesPageRoute extends _i6.PageRouteInfo<void> {
   const NotesPageRoute() : super(NotesPageRoute.name, path: '/notes-page');
 
   static const String name = 'NotesPageRoute';
 }
 
 /// generated route for
-/// [_i2.CreateNotePage]
-class CreateNotePageRoute extends _i5.PageRouteInfo<CreateNotePageRouteArgs> {
-  CreateNotePageRoute({_i6.Key? key, required _i7.Note? note})
+/// [_i4.CreateNotePage]
+class CreateNotePageRoute extends _i6.PageRouteInfo<CreateNotePageRouteArgs> {
+  CreateNotePageRoute({_i7.Key? key, required _i8.Note? note})
       : super(CreateNotePageRoute.name,
             path: '/create-note-page',
             args: CreateNotePageRouteArgs(key: key, note: note));
@@ -74,9 +97,9 @@ class CreateNotePageRoute extends _i5.PageRouteInfo<CreateNotePageRouteArgs> {
 class CreateNotePageRouteArgs {
   const CreateNotePageRouteArgs({this.key, required this.note});
 
-  final _i6.Key? key;
+  final _i7.Key? key;
 
-  final _i7.Note? note;
+  final _i8.Note? note;
 
   @override
   String toString() {
@@ -85,18 +108,10 @@ class CreateNotePageRouteArgs {
 }
 
 /// generated route for
-/// [_i3.SettingsPage]
-class SettingsPageRoute extends _i5.PageRouteInfo<void> {
+/// [_i5.SettingsPage]
+class SettingsPageRoute extends _i6.PageRouteInfo<void> {
   const SettingsPageRoute()
       : super(SettingsPageRoute.name, path: '/settings-page');
 
   static const String name = 'SettingsPageRoute';
-}
-
-/// generated route for
-/// [_i4.RegisterPage]
-class RegisterPageRoute extends _i5.PageRouteInfo<void> {
-  const RegisterPageRoute() : super(RegisterPageRoute.name, path: '/');
-
-  static const String name = 'RegisterPageRoute';
 }

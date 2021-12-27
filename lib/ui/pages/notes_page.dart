@@ -47,6 +47,7 @@ class _NotesPageState extends State<NotesPage> with TickerProviderStateMixin {
       ),
       appBar: AppBar(
         elevation: 0,
+        automaticallyImplyLeading: false,
         title: Row(
           children: <Widget>[
             const Text(
