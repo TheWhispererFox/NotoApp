@@ -11,7 +11,9 @@ class AuthGuard extends AutoRouteGuard {
     if (_auth.isUserAuthentificated()) {
       resolver.next();
     } else {
-      router.push(const AuthPageRoute());
+      if (router.current.route.name != AuthPageRoute.name) {
+        router.push(const AuthPageRoute());
+      }
     }
   }
 }

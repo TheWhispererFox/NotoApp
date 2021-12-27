@@ -47,6 +47,10 @@ class UserBloc extends Bloc<UserState, UserStateBuilder> {
       updateState((b) => b.error = authError);
     });
   }
+
+  void signOut() {
+    _authService.signOut();
+  }
 }
 
 // Future<UserCredential?> signInWithGoogle() async {

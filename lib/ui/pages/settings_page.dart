@@ -1,5 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:noto_app/app/material_auto_router.gr.dart';
 import 'package:noto_app/domain/themes/theme_bloc.dart';
+import 'package:noto_app/domain/user/user_bloc.dart';
 import 'package:noto_app/utils/extensions/context_extension.dart';
 import 'package:noto_app/utils/extensions/stream_extension.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +16,7 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   late final ThemeBloc _themeBloc;
+  late final UserBloc _userBloc;
 
   @override
   void dispose() {
@@ -22,6 +26,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   void initState() {
     _themeBloc = context.read();
+    _userBloc = context.read();
     super.initState();
   }
 
@@ -45,6 +50,13 @@ class _SettingsPageState extends State<SettingsPage> {
               );
             },
           ),
+          ElevatedButton(
+            onPressed: () {
+              _userBloc.signOut();
+              AutoRouter.of(context).popUntilRouteWithName(AuthPageRoute.name);
+            },
+            child: Text(context.lang!.signOut),
+          )
         ],
       ),
     );
