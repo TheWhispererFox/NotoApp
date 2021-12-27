@@ -18,7 +18,7 @@ void blocTest<
   required List<bool Function(TState state)> statePredicates,
   Future<void> Function(TBloc bloc)? event,
   Duration? wait,
-  int skip = 1,
+  int skip = 0,
   tester.Timeout? timeout,
 }) =>
     tester.test(
