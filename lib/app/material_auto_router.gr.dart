@@ -11,16 +11,21 @@
 import 'package:auto_route/auto_route.dart' as _i6;
 import 'package:flutter/material.dart' as _i7;
 
-import '../data/models/note.dart' as _i8;
+import '../data/models/note.dart' as _i9;
 import '../ui/pages/auth_page.dart' as _i1;
 import '../ui/pages/create_note_page.dart' as _i4;
 import '../ui/pages/notes_page.dart' as _i3;
 import '../ui/pages/register_page.dart' as _i2;
 import '../ui/pages/settings_page.dart' as _i5;
+import 'auth_guard.dart' as _i8;
 
 class AppRouter extends _i6.RootStackRouter {
-  AppRouter([_i7.GlobalKey<_i7.NavigatorState>? navigatorKey])
+  AppRouter(
+      {_i7.GlobalKey<_i7.NavigatorState>? navigatorKey,
+      required this.authGuard})
       : super(navigatorKey);
+
+  final _i8.AuthGuard authGuard;
 
   @override
   final Map<String, _i6.PageFactory> pagesMap = {
@@ -50,18 +55,20 @@ class AppRouter extends _i6.RootStackRouter {
 
   @override
   List<_i6.RouteConfig> get routes => [
-        _i6.RouteConfig(AuthPageRoute.name, path: '/'),
+        _i6.RouteConfig(AuthPageRoute.name, path: '/auth-page'),
         _i6.RouteConfig(RegisterPageRoute.name, path: '/register-page'),
-        _i6.RouteConfig(NotesPageRoute.name, path: '/notes-page'),
-        _i6.RouteConfig(CreateNotePageRoute.name, path: '/create-note-page'),
-        _i6.RouteConfig(SettingsPageRoute.name, path: '/settings-page')
+        _i6.RouteConfig(NotesPageRoute.name, path: '/', guards: [authGuard]),
+        _i6.RouteConfig(CreateNotePageRoute.name,
+            path: '/create-note-page', guards: [authGuard]),
+        _i6.RouteConfig(SettingsPageRoute.name,
+            path: '/settings-page', guards: [authGuard])
       ];
 }
 
 /// generated route for
 /// [_i1.AuthPage]
 class AuthPageRoute extends _i6.PageRouteInfo<void> {
-  const AuthPageRoute() : super(AuthPageRoute.name, path: '/');
+  const AuthPageRoute() : super(AuthPageRoute.name, path: '/auth-page');
 
   static const String name = 'AuthPageRoute';
 }
@@ -78,7 +85,7 @@ class RegisterPageRoute extends _i6.PageRouteInfo<void> {
 /// generated route for
 /// [_i3.NotesPage]
 class NotesPageRoute extends _i6.PageRouteInfo<void> {
-  const NotesPageRoute() : super(NotesPageRoute.name, path: '/notes-page');
+  const NotesPageRoute() : super(NotesPageRoute.name, path: '/');
 
   static const String name = 'NotesPageRoute';
 }
@@ -86,7 +93,7 @@ class NotesPageRoute extends _i6.PageRouteInfo<void> {
 /// generated route for
 /// [_i4.CreateNotePage]
 class CreateNotePageRoute extends _i6.PageRouteInfo<CreateNotePageRouteArgs> {
-  CreateNotePageRoute({_i7.Key? key, required _i8.Note? note})
+  CreateNotePageRoute({_i7.Key? key, required _i9.Note? note})
       : super(CreateNotePageRoute.name,
             path: '/create-note-page',
             args: CreateNotePageRouteArgs(key: key, note: note));
@@ -99,7 +106,7 @@ class CreateNotePageRouteArgs {
 
   final _i7.Key? key;
 
-  final _i8.Note? note;
+  final _i9.Note? note;
 
   @override
   String toString() {

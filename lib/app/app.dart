@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noto_app/app/auth_guard.dart';
 import 'package:noto_app/app/locator.dart';
 import 'package:noto_app/app/material_auto_router.gr.dart';
 import 'package:noto_app/app/themes.dart' as themes;
@@ -15,7 +16,7 @@ class App extends StatelessWidget {
   static String appName = "Noto App";
 
   final _key = GlobalKey<NavigatorState>();
-  late final _appRouter = AppRouter(_key);
+  late final _appRouter = AppRouter(navigatorKey: _key, authGuard: AuthGuard());
   late final PreferencesService _preferencesService = locator.get();
   @override
   Widget build(BuildContext context) {
