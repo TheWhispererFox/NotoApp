@@ -5,5 +5,6 @@
   "folders": "Папки",
   "darkMode": "Тёмная тема",
   "lightMode": "Светлая тема",
-  "delete": "Удалить"
+  "delete": "Удалить",
+  "signOut": "Выйти"
 }
