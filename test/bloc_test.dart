@@ -9,14 +9,13 @@ void main() {
     blocTest<ThemeBloc, ThemeState, ThemeStateBuilder>(
       'ThemeBloc theme switch test',
       build: () async => ThemeBloc(
-        initialThemeMode: ThemeMode.dark,
+        initialThemeMode: ThemeMode.light,
         onThemeModeChanged: (_) {},
       )..debug = true,
-      event: (bloc) async => bloc.setThemeMode(ThemeMode.light),
-      skip: 0,
+      event: (bloc) async => bloc.setThemeMode(ThemeMode.dark),
+      skip: 1,
       statePredicates: [
         (state) => state.themeMode == ThemeMode.dark,
-        (state) => state.themeMode == ThemeMode.light,
       ],
       timeout: Timeout.none,
     );
