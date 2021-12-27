@@ -9,7 +9,7 @@ void main() {
     blocTest<ThemeBloc, ThemeState, ThemeStateBuilder>(
       'ThemeBloc theme switch test',
       build: () async => ThemeBloc(
-        initTheme: ThemeMode.dark,
+        initialThemeMode: ThemeMode.dark,
         onThemeChanged: (_) {},
       ),
       event: (bloc) async => bloc.setThemeMode(ThemeMode.light),
