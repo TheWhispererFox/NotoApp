@@ -79,12 +79,12 @@ class _RegisterPageState extends State<RegisterPage> {
                   onPressed: () async {
                     if (_passwordController.value ==
                         _repeatPasswordController.value) {
-                      await _bloc.events.registerUserWithEmail(
+                      await _bloc.registerUserWithEmail(
                         _emailController.value.text,
                         _passwordController.value.text,
                       );
                     } else {
-                      _bloc.events.passwordDontMatch();
+                      _bloc.passwordDontMatch();
                     }
                   },
                   child: const Text('Sign up'),

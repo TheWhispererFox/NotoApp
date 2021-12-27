@@ -8,35 +8,26 @@ class UserBloc extends Bloc<UserState, UserStateBuilder> {
 
   final AuthService _authService = locator.get();
 
-  late final events = UserEvents(this);
-}
-
-class UserEvents {
-  UserEvents(this._bloc);
-
-  final UserBloc _bloc;
-
   void passwordDontMatch() {
-    _bloc.updateState((b) => b.error = AuthError.passwordDontMatch);
+    updateState((b) => b.error = AuthError.passwordDontMatch);
   }
 
   Future<void> registerUserWithEmail(
     String email,
     String password,
   ) async {
-    final result =
-        await _bloc._authService.registerUserWithEmail(email, password);
+    final result = await _authService.registerUserWithEmail(email, password);
 
     result.fold(
       (userCredential) {
-        _bloc.updateState(
+        updateState(
           (b) => b
             ..userCredential = userCredential
             ..error = null,
         );
       },
       (authError) {
-        _bloc.updateState((b) => b.error = authError);
+        updateState((b) => b.error = authError);
       },
     );
   }
@@ -45,17 +36,18 @@ class UserEvents {
     String email,
     String password,
   ) async {
-    final result = await _bloc._authService.signInWithEmail(email, password);
+    final result = await _authService.signInWithEmail(email, password);
     result.fold((userCredential) {
-      _bloc.updateState(
+      updateState(
         (b) => b
           ..userCredential = userCredential
           ..error = null,
       );
     }, (authError) {
-      _bloc.updateState((b) => b.error = authError);
+      updateState((b) => b.error = authError);
     });
   }
+}
 
   // Future<UserCredential?> signInWithGoogle() async {
   //   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -76,4 +68,3 @@ class UserEvents {
   // Future<void> signOut() async {
   //   await _auth.signOut();
   // }
-}

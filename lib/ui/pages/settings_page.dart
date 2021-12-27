@@ -39,7 +39,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 title: const Text("Dark mode"),
                 value: state.themeMode == ThemeMode.dark,
                 onChanged: (_) {
-                  _themeBloc.events.switchTheme();
+                  _themeBloc.switchTheme();
                 },
               );
             },

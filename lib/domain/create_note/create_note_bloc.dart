@@ -11,19 +11,12 @@ class CreateNoteBloc extends Bloc<CreateNoteState, CreateNoteStateBuilder> {
   final FirestoreNoteRepository _noteRepository = locator.get();
 
   Stream<BuiltList<Note>> getNotes() => _noteRepository.stream;
-  late final events = NotesEvents(this);
-}
-
-class NotesEvents {
-  NotesEvents(this._bloc);
-
-  final CreateNoteBloc _bloc;
 
   void saveNote() {
-    _bloc._noteRepository.addOrUpdate(_bloc.state.note);
+    _noteRepository.addOrUpdate(state.note);
   }
 
   void deleteNote() {
-    _bloc._noteRepository.delete(_bloc.state.note);
+    _noteRepository.delete(state.note);
   }
 }

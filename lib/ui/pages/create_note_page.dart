@@ -44,7 +44,7 @@ class _CreateNoteState extends State<CreateNotePage> {
               PopupMenuItem(
                 value: 1,
                 onTap: () {
-                  _bloc.events.deleteNote();
+                  _bloc.deleteNote();
                 },
                 child: const Text("Delete"),
               ),
@@ -81,7 +81,7 @@ class _CreateNoteState extends State<CreateNotePage> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    _bloc.events.saveNote();
+                    _bloc.saveNote();
                     AutoRouter.of(context).pop();
                   },
                   child: const Text('Done'),

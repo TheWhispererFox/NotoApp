@@ -75,7 +75,7 @@ class _AuthPageState extends State<AuthPage> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    _bloc.events.signInWithEmail(
+                    _bloc.signInWithEmail(
                       _emailController.value.text,
                       _passwordController.value.text,
                     );
