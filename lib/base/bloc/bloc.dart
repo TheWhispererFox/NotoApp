@@ -15,7 +15,7 @@ abstract class Bloc<TState extends Built<TState, TStateBuilder>,
     init();
   }
 
-  final bool debug;
+  bool debug;
   final stateTag = (TState).toString().toSnakecase();
 
   final TState _initialState;

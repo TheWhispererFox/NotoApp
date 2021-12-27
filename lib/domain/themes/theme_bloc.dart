@@ -7,7 +7,7 @@ class ThemeBloc extends Bloc<ThemeState, ThemeStateBuilder> {
   ThemeBloc({
     required this.initialThemeMode,
     required this.onThemeModeChanged,
-  }) : super(ThemeState.initial(), debug: true) {
+  }) : super(ThemeState.initial()) {
     setThemeMode(
       initialThemeMode,
     );

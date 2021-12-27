@@ -11,9 +11,13 @@ void main() {
       build: () async => ThemeBloc(
         initialThemeMode: ThemeMode.dark,
         onThemeModeChanged: (_) {},
-      ),
+      )..debug = true,
       event: (bloc) async => bloc.setThemeMode(ThemeMode.light),
-      expect: (state) => state.themeMode == ThemeMode.light,
+      skip: 0,
+      expect: [
+        (state) async => state.themeMode == ThemeMode.dark,
+        (state) async => state.themeMode == ThemeMode.light,
+      ],
       timeout: Timeout.none,
     );
   });
