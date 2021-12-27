@@ -5,11 +5,11 @@ import 'package:noto_app/domain/themes/theme_state.dart';
 
 class ThemeBloc extends Bloc<ThemeState, ThemeStateBuilder> {
   final ThemeMode initialThemeMode;
-  final void Function(ThemeMode theme) onThemeChanged;
+  final void Function(ThemeMode theme) onThemeModeChanged;
 
   ThemeBloc({
     required this.initialThemeMode,
-    required this.onThemeChanged,
+    required this.onThemeModeChanged,
   }) : super(ThemeState.initial(), debug: true) {
     setThemeMode(
       initialThemeMode,
@@ -18,7 +18,7 @@ class ThemeBloc extends Bloc<ThemeState, ThemeStateBuilder> {
 
   void setThemeMode(ThemeMode themeMode) {
     updateState((b) => b..themeMode = themeMode);
-    onThemeChanged(themeMode);
+    onThemeModeChanged(themeMode);
   }
 
   void setBrightness(Brightness brightness) {

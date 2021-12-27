@@ -29,7 +29,7 @@ class App extends StatelessWidget {
           create: (_) => ThemeBloc(
             initialThemeMode:
                 _preferencesService.darkMode ? ThemeMode.dark : ThemeMode.light,
-            onThemeChanged: (theme) {
+            onThemeModeChanged: (theme) {
               _preferencesService.darkMode = theme == ThemeMode.dark;
             },
           ),

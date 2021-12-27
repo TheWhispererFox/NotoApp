@@ -10,7 +10,7 @@ void main() {
       'ThemeBloc theme switch test',
       build: () async => ThemeBloc(
         initialThemeMode: ThemeMode.dark,
-        onThemeChanged: (_) {},
+        onThemeModeChanged: (_) {},
       ),
       event: (bloc) async => bloc.setThemeMode(ThemeMode.light),
       expect: (state) => state.themeMode == ThemeMode.light,
