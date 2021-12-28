@@ -50,3 +50,6 @@ app.*.map.json
 /ios/GoogleService-Info.plist
 /macos/GoogleService-Info.plist
 /lib/firebase_options.dart
+
+# Code coverage
+/coverage/lcov.info
