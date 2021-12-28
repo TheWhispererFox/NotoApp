@@ -7,18 +7,39 @@ import 'package:noto_app/domain/themes/theme_state.dart';
 void main() {
   group('ThemeBloc tests', () {
     blocTest<ThemeBloc, ThemeState, ThemeStateBuilder>(
+      'ThemeBloc theme setTheme test',
+      build: () async => ThemeBloc(
+        initialThemeMode: ThemeMode.light,
+        onThemeModeChanged: (_) {},
+      ),
+      event: (bloc) async => bloc.setThemeMode(ThemeMode.dark),
+      statePredicates: [
+        (state) => state.themeMode == ThemeMode.dark,
+      ],
+    );
+
+    blocTest<ThemeBloc, ThemeState, ThemeStateBuilder>(
       'ThemeBloc theme switch test',
       build: () async => ThemeBloc(
         initialThemeMode: ThemeMode.light,
         onThemeModeChanged: (_) {},
       ),
-      skip: 0,
-      event: (bloc) async => bloc.setThemeMode(ThemeMode.dark),
+      event: (bloc) async => bloc.switchTheme(),
       statePredicates: [
-        (state) => state.themeMode == ThemeMode.light,
         (state) => state.themeMode == ThemeMode.dark,
       ],
-      timeout: Timeout.none,
+    );
+
+    blocTest<ThemeBloc, ThemeState, ThemeStateBuilder>(
+      'ThemeBloc theme setBrightness test',
+      build: () async => ThemeBloc(
+        initialThemeMode: ThemeMode.light,
+        onThemeModeChanged: (_) {},
+      ),
+      event: (bloc) async => bloc.setBrightness(Brightness.dark),
+      statePredicates: [
+        (state) => state.brightness == Brightness.dark,
+      ],
     );
   });
 }
