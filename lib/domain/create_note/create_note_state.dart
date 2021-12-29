@@ -12,9 +12,12 @@ abstract class CreateNoteState
 
   factory CreateNoteState.initial(Note? note) {
     return CreateNoteState(
-      (b) => b..note = note?.toBuilder() ?? Note.empty().toBuilder(),
+      (b) => b
+        ..note = note?.toBuilder() ?? Note.empty().toBuilder()
+        ..isRenderMode = true,
     );
   }
 
   Note get note;
+  bool get isRenderMode;
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:intl/intl.dart';
 import 'package:noto_app/data/models/note.dart';
 
@@ -44,8 +45,8 @@ class NoteCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Text(
-                    note.content ?? '',
+                  Expanded(
+                    child: Markdown(data: note.content ?? ""),
                   ),
                   const Spacer(),
                   Row(

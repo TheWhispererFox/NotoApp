@@ -7,25 +7,19 @@ part of 'create_note_state.dart';
 // **************************************************************************
 
 class _$CreateNoteState extends CreateNoteState {
+  @override
+  final Note note;
+  @override
+  final bool isRenderMode;
+
   factory _$CreateNoteState([void Function(CreateNoteStateBuilder)? updates]) =>
       (new CreateNoteStateBuilder()..update(updates)).build();
 
-  _$CreateNoteState._({required this.note}) : super._() {
+  _$CreateNoteState._({required this.note, required this.isRenderMode})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(note, 'CreateNoteState', 'note');
-  }
-
-  @override
-  final Note note;
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(other, this)) return true;
-    return other is CreateNoteState && note == other.note;
-  }
-
-  @override
-  int get hashCode {
-    return $jf($jc(0, note.hashCode));
+    BuiltValueNullFieldError.checkNotNull(
+        isRenderMode, 'CreateNoteState', 'isRenderMode');
   }
 
   @override
@@ -37,18 +31,50 @@ class _$CreateNoteState extends CreateNoteState {
       new CreateNoteStateBuilder()..replace(this);
 
   @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is CreateNoteState &&
+        note == other.note &&
+        isRenderMode == other.isRenderMode;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc($jc(0, note.hashCode), isRenderMode.hashCode));
+  }
+
+  @override
   String toString() {
-    return (newBuiltValueToStringHelper('CreateNoteState')..add('note', note))
+    return (newBuiltValueToStringHelper('CreateNoteState')
+          ..add('note', note)
+          ..add('isRenderMode', isRenderMode))
         .toString();
   }
 }
 
 class CreateNoteStateBuilder
     implements Builder<CreateNoteState, CreateNoteStateBuilder> {
+  _$CreateNoteState? _$v;
+
+  NoteBuilder? _note;
+  NoteBuilder get note => _$this._note ??= new NoteBuilder();
+  set note(NoteBuilder? note) => _$this._note = note;
+
+  bool? _isRenderMode;
+  bool? get isRenderMode => _$this._isRenderMode;
+  set isRenderMode(bool? isRenderMode) => _$this._isRenderMode = isRenderMode;
+
   CreateNoteStateBuilder();
 
-  _$CreateNoteState? _$v;
-  NoteBuilder? _note;
+  CreateNoteStateBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _note = $v.note.toBuilder();
+      _isRenderMode = $v.isRenderMode;
+      _$v = null;
+    }
+    return this;
+  }
 
   @override
   void replace(CreateNoteState other) {
@@ -61,24 +87,15 @@ class CreateNoteStateBuilder
     if (updates != null) updates(this);
   }
 
-  NoteBuilder get note => _$this._note ??= new NoteBuilder();
-
-  set note(NoteBuilder? note) => _$this._note = note;
-
-  CreateNoteStateBuilder get _$this {
-    final $v = _$v;
-    if ($v != null) {
-      _note = $v.note.toBuilder();
-      _$v = null;
-    }
-    return this;
-  }
-
   @override
   _$CreateNoteState build() {
     _$CreateNoteState _$result;
     try {
-      _$result = _$v ?? new _$CreateNoteState._(note: note.build());
+      _$result = _$v ??
+          new _$CreateNoteState._(
+              note: note.build(),
+              isRenderMode: BuiltValueNullFieldError.checkNotNull(
+                  isRenderMode, 'CreateNoteState', 'isRenderMode'));
     } catch (_) {
       late String _$failedField;
       try {

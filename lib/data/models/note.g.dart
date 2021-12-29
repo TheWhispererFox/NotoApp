@@ -11,9 +11,46 @@ Serializer<Note> _$noteSerializer = new _$NoteSerializer();
 class _$NoteSerializer implements StructuredSerializer<Note> {
   @override
   final Iterable<Type> types = const [Note, _$Note];
-
   @override
   final String wireName = 'Note';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers, Note object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'createdAt',
+      serializers.serialize(object.createdAt,
+          specifiedType: const FullType(DateTime)),
+      'updatedAt',
+      serializers.serialize(object.updatedAt,
+          specifiedType: const FullType(DateTime)),
+    ];
+    Object? value;
+    value = object.title;
+    if (value != null) {
+      result
+        ..add('title')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.content;
+    if (value != null) {
+      result
+        ..add('content')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.deletedAt;
+    if (value != null) {
+      result
+        ..add('deletedAt')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(DateTime)));
+    }
+    return result;
+  }
 
   @override
   Note deserialize(Serializers serializers, Iterable<Object?> serialized,
@@ -55,47 +92,22 @@ class _$NoteSerializer implements StructuredSerializer<Note> {
 
     return result.build();
   }
-
-  @override
-  Iterable<Object?> serialize(Serializers serializers, Note object,
-      {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'createdAt',
-      serializers.serialize(object.createdAt,
-          specifiedType: const FullType(DateTime)),
-      'updatedAt',
-      serializers.serialize(object.updatedAt,
-          specifiedType: const FullType(DateTime)),
-    ];
-    Object? value;
-    value = object.title;
-    if (value != null) {
-      result
-        ..add('title')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    value = object.content;
-    if (value != null) {
-      result
-        ..add('content')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    value = object.deletedAt;
-    if (value != null) {
-      result
-        ..add('deletedAt')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(DateTime)));
-    }
-    return result;
-  }
 }
 
 class _$Note extends Note {
+  @override
+  final String? title;
+  @override
+  final String? content;
+  @override
+  final String id;
+  @override
+  final DateTime createdAt;
+  @override
+  final DateTime updatedAt;
+  @override
+  final DateTime? deletedAt;
+
   factory _$Note([void Function(NoteBuilder)? updates]) =>
       (new NoteBuilder()..update(updates)).build();
 
@@ -113,22 +125,11 @@ class _$Note extends Note {
   }
 
   @override
-  final String? content;
+  Note rebuild(void Function(NoteBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
-  final DateTime createdAt;
-
-  @override
-  final DateTime? deletedAt;
-
-  @override
-  final String id;
-
-  @override
-  final String? title;
-
-  @override
-  final DateTime updatedAt;
+  NoteBuilder toBuilder() => new NoteBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -153,13 +154,6 @@ class _$Note extends Note {
   }
 
   @override
-  Note rebuild(void Function(NoteBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
-
-  @override
-  NoteBuilder toBuilder() => new NoteBuilder()..replace(this);
-
-  @override
   String toString() {
     return (newBuiltValueToStringHelper('Note')
           ..add('title', title)
@@ -173,50 +167,33 @@ class _$Note extends Note {
 }
 
 class NoteBuilder implements Builder<Note, NoteBuilder>, EntityBuilder {
-  NoteBuilder();
-
   _$Note? _$v;
-  String? _content;
-  DateTime? _createdAt;
-  DateTime? _deletedAt;
-  String? _id;
+
   String? _title;
-  DateTime? _updatedAt;
-
-  @override
-  void replace(covariant Note other) {
-    ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$Note;
-  }
-
-  @override
-  void update(void Function(NoteBuilder)? updates) {
-    if (updates != null) updates(this);
-  }
-
   String? get title => _$this._title;
-
   set title(covariant String? title) => _$this._title = title;
 
+  String? _content;
   String? get content => _$this._content;
-
   set content(covariant String? content) => _$this._content = content;
 
+  String? _id;
   String? get id => _$this._id;
-
   set id(covariant String? id) => _$this._id = id;
 
+  DateTime? _createdAt;
   DateTime? get createdAt => _$this._createdAt;
-
   set createdAt(covariant DateTime? createdAt) => _$this._createdAt = createdAt;
 
+  DateTime? _updatedAt;
   DateTime? get updatedAt => _$this._updatedAt;
-
   set updatedAt(covariant DateTime? updatedAt) => _$this._updatedAt = updatedAt;
 
+  DateTime? _deletedAt;
   DateTime? get deletedAt => _$this._deletedAt;
-
   set deletedAt(covariant DateTime? deletedAt) => _$this._deletedAt = deletedAt;
+
+  NoteBuilder();
 
   NoteBuilder get _$this {
     final $v = _$v;
@@ -230,6 +207,17 @@ class NoteBuilder implements Builder<Note, NoteBuilder>, EntityBuilder {
       _$v = null;
     }
     return this;
+  }
+
+  @override
+  void replace(covariant Note other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$Note;
+  }
+
+  @override
+  void update(void Function(NoteBuilder)? updates) {
+    if (updates != null) updates(this);
   }
 
   @override

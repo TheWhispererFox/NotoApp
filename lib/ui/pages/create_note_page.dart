@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:noto_app/data/models/note.dart';
 import 'package:noto_app/domain/create_note/create_note_bloc.dart';
 import 'package:noto_app/ui/constants.dart';
+import 'package:noto_app/utils/extensions/extensions.dart';
 
 class CreateNotePage extends StatefulWidget {
   const CreateNotePage({Key? key, required this.note}) : super(key: key);
@@ -39,6 +41,14 @@ class _CreateNoteState extends State<CreateNotePage> {
     return Scaffold(
       appBar: AppBar(
         actions: [
+          IconButton(
+            onPressed: () {
+              _bloc.updateState(
+                (b) => b..isRenderMode = !_bloc.state.isRenderMode,
+              );
+            },
+            icon: const Icon(Icons.text_format),
+          ),
           PopupMenuButton(
             itemBuilder: (context) => [
               PopupMenuItem(
@@ -71,13 +81,32 @@ class _CreateNoteState extends State<CreateNotePage> {
                   onChanged: (value) =>
                       _bloc.updateState((b) => b..note.title = value),
                 ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    hintText: 'Enter note here',
+                Expanded(
+                  child: _bloc.stateStream
+                      .map((s) => s.isRenderMode)
+                      .builderNoLoading(
+                    onData: (context, isRenderMode) {
+                      if (isRenderMode) {
+                        return _bloc.stateStream
+                            .map((s) => s.note.content)
+                            .builderNoLoading(
+                          onData: (context, data) {
+                            return Markdown(data: data ?? "");
+                          },
+                        );
+                      } else {
+                        return TextFormField(
+                          maxLines: null,
+                          decoration: const InputDecoration(
+                            hintText: 'Enter note here',
+                          ),
+                          controller: _contentController,
+                          onChanged: (value) =>
+                              _bloc.updateState((b) => b..note.content = value),
+                        );
+                      }
+                    },
                   ),
-                  controller: _contentController,
-                  onChanged: (value) =>
-                      _bloc.updateState((b) => b..note.content = value),
                 ),
                 ElevatedButton(
                   onPressed: () {
