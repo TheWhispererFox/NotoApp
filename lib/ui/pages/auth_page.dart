@@ -1,61 +1,52 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:noto_app/app/material_auto_router.gr.dart';
 import 'package:noto_app/domain/user/user_bloc.dart';
 import 'package:noto_app/ui/constants.dart';
 import 'package:noto_app/utils/extensions/context_extension.dart';
 import 'package:provider/provider.dart';
 
-class AuthPage extends StatefulWidget {
+class AuthPage extends HookWidget {
   const AuthPage({Key? key}) : super(key: key);
-
-  @override
-  _AuthPageState createState() => _AuthPageState();
-}
-
-class _AuthPageState extends State<AuthPage> {
-  late final UserBloc _bloc;
-  late TextEditingController _emailController;
-  late TextEditingController _passwordController;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
-  @override
-  void dispose() {
-    _bloc.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    _bloc = context.read();
-    _emailController = TextEditingController();
-    _passwordController = TextEditingController();
-
-    _bloc.stateStream
-        .map((event) => event.error)
-        .where((event) => event != null)
-        .listen((event) {
-      context.scaffoldMessenger
-          .showSnackBar(SnackBar(content: Text(event!.toString())));
-    });
-    _bloc.stateStream
-        .map((event) => event.userCredential)
-        .where((event) => event != null)
-        .listen((event) {
-      AutoRouter.of(context).push(const NotesPageRoute());
-    });
-
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
+    final UserBloc _bloc = useMemoized(() => context.read());
+
+    useEffect(
+      () {
+        final subscription = _bloc.stateStream
+            .map((event) => event.error)
+            .where((event) => event != null)
+            .listen((event) {
+          context.scaffoldMessenger
+              .showSnackBar(SnackBar(content: Text(event!.toString())));
+        });
+
+        return subscription.cancel;
+      },
+      [_bloc.stateStream],
+    );
+
+    useEffect(
+      () {
+        final subscription = _bloc.stateStream
+            .map((event) => event.userCredential)
+            .where((event) => event != null)
+            .listen((event) {
+          AutoRouter.of(context).push(const NotesPageRoute());
+        });
+
+        return subscription.cancel;
+      },
+      [_bloc.stateStream],
+    );
+
+    useEffect(() => _bloc.dispose);
+
+    final _emailController = useTextEditingController();
+    final _passwordController = useTextEditingController();
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
