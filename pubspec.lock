@@ -756,6 +756,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.0.17"
+  monarch:
+    dependency: "direct dev"
+    description:
+      name: monarch
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
+  monarch_annotations:
+    dependency: transitive
+    description:
+      name: monarch_annotations
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
+  monarch_utils:
+    dependency: transitive
+    description:
+      name: monarch_utils
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   nested:
     dependency: transitive
     description:
