@@ -1,57 +1,35 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:noto_app/domain/user/user_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:noto_app/app/app.dart';
 import 'package:noto_app/ui/constants.dart';
 import 'package:noto_app/utils/extensions/context_extension.dart';
-import 'package:provider/provider.dart';
 
-class RegisterPage extends StatefulWidget {
+class RegisterPage extends ConsumerWidget {
   const RegisterPage({Key? key}) : super(key: key);
 
   @override
-  _RegisterPageState createState() => _RegisterPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _bloc = ref.watch(userBlocProvider);
 
-class _RegisterPageState extends State<RegisterPage> {
-  late final UserBloc _bloc;
-  late TextEditingController _emailController;
-  late TextEditingController _passwordController;
-  late TextEditingController _repeatPasswordController;
+    useEffect(
+      () {
+        final subscription = _bloc.stateStream
+            .map((event) => event.error)
+            .where((event) => event != null)
+            .listen((event) {
+          context.scaffoldMessenger
+              .showSnackBar(SnackBar(content: Text(event!.toString())));
+        });
+        return subscription.cancel;
+      },
+    );
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
+    final _emailController = useTextEditingController();
+    final _passwordController = useTextEditingController();
+    final _repeatPasswordController = useTextEditingController();
 
-  @override
-  void dispose() {
-    _bloc.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    _repeatPasswordController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    _bloc = context.read();
-    _emailController = TextEditingController();
-    _passwordController = TextEditingController();
-    _repeatPasswordController = TextEditingController();
-
-    _bloc.stateStream
-        .map((event) => event.error)
-        .where((event) => event != null)
-        .listen((event) {
-      context.scaffoldMessenger
-          .showSnackBar(SnackBar(content: Text(event!.toString())));
-    });
-
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Padding(

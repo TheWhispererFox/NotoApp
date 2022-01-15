@@ -22,7 +22,6 @@ dependencies:
   firebase_core: ^1.10.6
   injectable: ^1.5.0
   get_it: ^7.2.0
-  provider: ^6.0.1
   rxdart: ^0.27.3
   logger: ^1.1.0
   flutter_hooks: ^0.18.1
@@ -42,6 +41,7 @@ dependencies:
   built_rx_bloc: ^0.0.3
   built_rx_bloc_test: ^0.0.1
   flutter_markdown: ^0.6.9
+  hooks_riverpod: ^1.0.3
 
 dev_dependencies:
   lint: ^1.0.0

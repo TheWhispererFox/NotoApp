@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:noto_app/app/app.dart';
 import 'package:noto_app/app/locator.dart';
 import 'package:noto_app/firebase_options.dart';
@@ -24,5 +25,5 @@ Future<void> initialize() async {
 
 Future<void> main() async {
   await initialize();
-  runApp(App());
+  runApp(ProviderScope(child: App()));
 }

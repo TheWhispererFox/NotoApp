@@ -1,37 +1,21 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:noto_app/app/app.dart';
 import 'package:noto_app/app/material_auto_router.gr.dart';
 import 'package:noto_app/domain/themes/theme_bloc.dart';
 import 'package:noto_app/domain/user/user_bloc.dart';
 import 'package:noto_app/utils/extensions/context_extension.dart';
 import 'package:noto_app/utils/extensions/stream_extension.dart';
-import 'package:provider/provider.dart';
 
-class SettingsPage extends StatefulWidget {
+class SettingsPage extends ConsumerWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
   @override
-  _SettingsPageState createState() => _SettingsPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _themeBloc = ref.watch(themeBlocProvider);
+    final _userBloc = ref.watch(userBlocProvider);
 
-class _SettingsPageState extends State<SettingsPage> {
-  late final ThemeBloc _themeBloc;
-  late final UserBloc _userBloc;
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    _themeBloc = context.read();
-    _userBloc = context.read();
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(context.lang!.settings),
