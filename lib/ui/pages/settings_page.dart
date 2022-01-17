@@ -16,7 +16,6 @@ class SettingsPage extends HookWidget {
     final ThemeBloc _themeBloc = useMemoized(() => context.read());
 
     final UserBloc _userBloc = useMemoized(() => context.read());
-    useEffect(() => _userBloc.dispose);
 
     return Scaffold(
       appBar: AppBar(

@@ -12,7 +12,6 @@ class RegisterPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final UserBloc _bloc = useMemoized(() => context.read());
-    useEffect(() => _bloc.dispose);
 
     final _emailController = useTextEditingController();
     final _passwordController = useTextEditingController();

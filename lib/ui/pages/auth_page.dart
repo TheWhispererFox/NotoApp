@@ -13,7 +13,6 @@ class AuthPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final UserBloc _bloc = useMemoized(() => context.read());
-    useEffect(() => _bloc.dispose);
 
     useEffect(
       () {
@@ -35,8 +34,9 @@ class AuthPage extends HookWidget {
         final subscription = _bloc.stateStream
             .map((event) => event.userCredential)
             .where((event) => event != null)
-            .listen((event) {
-          AutoRouter.of(context).push(const NotesPageRoute());
+            .listen((event) async {
+          _bloc.dispose();
+          await AutoRouter.of(context).push(const NotesPageRoute());
         });
 
         return subscription.cancel;
