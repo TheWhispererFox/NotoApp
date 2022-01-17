@@ -9,9 +9,11 @@ import 'package:provider/provider.dart';
 
 class AuthPage extends HookWidget {
   const AuthPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final UserBloc _bloc = useMemoized(() => context.read());
+    useEffect(() => _bloc.dispose);
 
     useEffect(
       () {
@@ -41,8 +43,6 @@ class AuthPage extends HookWidget {
       },
       [_bloc.stateStream],
     );
-
-    useEffect(() => _bloc.dispose);
 
     final _emailController = useTextEditingController();
     final _passwordController = useTextEditingController();

@@ -1,57 +1,38 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:noto_app/domain/user/user_bloc.dart';
 import 'package:noto_app/ui/constants.dart';
 import 'package:noto_app/utils/extensions/context_extension.dart';
 import 'package:provider/provider.dart';
 
-class RegisterPage extends StatefulWidget {
+class RegisterPage extends HookWidget {
   const RegisterPage({Key? key}) : super(key: key);
 
   @override
-  _RegisterPageState createState() => _RegisterPageState();
-}
-
-class _RegisterPageState extends State<RegisterPage> {
-  late final UserBloc _bloc;
-  late TextEditingController _emailController;
-  late TextEditingController _passwordController;
-  late TextEditingController _repeatPasswordController;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
-  @override
-  void dispose() {
-    _bloc.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    _repeatPasswordController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    _bloc = context.read();
-    _emailController = TextEditingController();
-    _passwordController = TextEditingController();
-    _repeatPasswordController = TextEditingController();
-
-    _bloc.stateStream
-        .map((event) => event.error)
-        .where((event) => event != null)
-        .listen((event) {
-      context.scaffoldMessenger
-          .showSnackBar(SnackBar(content: Text(event!.toString())));
-    });
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final UserBloc _bloc = useMemoized(() => context.read());
+    useEffect(() => _bloc.dispose);
+
+    final _emailController = useTextEditingController();
+    final _passwordController = useTextEditingController();
+    final _repeatPasswordController = useTextEditingController();
+
+    useEffect(
+      () {
+        final subscription = _bloc.stateStream
+            .map((event) => event.error)
+            .where((event) => event != null)
+            .listen((event) {
+          context.scaffoldMessenger
+              .showSnackBar(SnackBar(content: Text(event!.toString())));
+        });
+
+        return subscription.cancel;
+      },
+      [_bloc.stateStream],
+    );
+
     return Scaffold(
       body: SafeArea(
         child: Padding(

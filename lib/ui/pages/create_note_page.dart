@@ -1,43 +1,27 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:noto_app/data/models/note.dart';
 import 'package:noto_app/domain/create_note/create_note_bloc.dart';
 import 'package:noto_app/ui/constants.dart';
 import 'package:noto_app/utils/extensions/extensions.dart';
 
-class CreateNotePage extends StatefulWidget {
+class CreateNotePage extends HookWidget {
   const CreateNotePage({Key? key, required this.note}) : super(key: key);
 
   final Note? note;
 
   @override
-  _CreateNoteState createState() => _CreateNoteState();
-}
-
-class _CreateNoteState extends State<CreateNotePage> {
-  late final CreateNoteBloc _bloc;
-  late TextEditingController _contentController;
-  late TextEditingController _titleController;
-
-  @override
-  void dispose() {
-    _bloc.dispose();
-    _contentController.dispose();
-    _titleController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _bloc = CreateNoteBloc(widget.note);
-    _titleController = TextEditingController(text: _bloc.state.note.title);
-    _contentController = TextEditingController(text: _bloc.state.note.content);
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final CreateNoteBloc _bloc = useMemoized(() => CreateNoteBloc(note));
+    useEffect(() => _bloc.dispose);
+
+    final _contentController =
+        useTextEditingController(text: _bloc.state.note.content);
+    final _titleController =
+        useTextEditingController(text: _bloc.state.note.title);
+
     return Scaffold(
       appBar: AppBar(
         actions: [
